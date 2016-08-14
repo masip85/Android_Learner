@@ -1,0 +1,20 @@
+package com.example.touchexample;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+
+public class TouchExampleActivity extends Activity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.view_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.view_main, menu);
+        return true;
+    }
+}

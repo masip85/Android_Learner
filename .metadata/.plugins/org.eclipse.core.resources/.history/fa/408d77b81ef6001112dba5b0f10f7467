@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/cv1TextViewNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/cv1Nombre" />
+
+    <EditText
+        android:id="@+id/cv1EditNombre"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cv1TextViewNombre" />
+
+    <TextView
+        android:id="@+id/cv1TextViewFechaNacimiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv1EditNombre"
+        android:text="@string/cv1FechaNacimiento" />
+
+    <DatePicker
+        android:id="@+id/cv1DatePicker"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv1TextViewFechaNacimiento"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/cv1TextViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv1DatePicker"
+        android:text="@string/cv1Email" />
+
+    <EditText
+        android:id="@+id/cv1EditEmail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv1DatePicker"
+        android:layout_toRightOf="@+id/cv1TextViewEmail" />
+
+    <TextView
+        android:id="@+id/cv1TextViewTelefono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv1EditEmail"
+        android:text="@string/cv1Telefono" />
+
+    <EditText
+        android:id="@+id/cv1EditTelefono"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv1EditEmail"
+        android:layout_toRightOf="@+id/cv1TextViewTelefono" />
+
+    <TextView
+        android:id="@+id/cv1Localidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv1EditTelefono"
+        android:text="@string/cv1Localidad" />
+
+    <EditText
+        android:id="@+id/cv1EditLocalidad"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv1EditTelefono"
+        android:layout_toRightOf="@+id/cv1Localidad" />
+
+    <ImageView
+        android:id="@+id/cv1ImageViewFoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv1BotonTomarFoto" />
+
+    <Button
+        android:id="@+id/cv1BotonTomarFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv1EditLocalidad"
+        android:onClick="lanzarcv1TomarFoto"
+        android:text="Tomar Foto" />
+
+    <Button
+        android:id="@+id/cv1BotonCargarFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv1EditLocalidad"
+        android:layout_toRightOf="@+id/cv1BotonTomarFoto"
+        android:onClick="lanzarcv1CargarFoto"
+        android:text="Cargar Foto" />
+
+</RelativeLayout>

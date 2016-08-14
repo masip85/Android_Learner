@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabAsteroides"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="30dip" >
+
+        <TextView 
+		    style="@style/TextoAsteroidesLargePort"		    
+            android:text="@string/aplicacionAsteroides" />
+
+        <Button 
+            android:id="@+id/button1"
+            android:layout_width="fill_parent"
+   			android:layout_height="wrap_content"
+            android:text="@string/Arrancar" />
+
+        <Button 
+            android:id="@+id/button2"
+            android:layout_width="fill_parent"
+   			android:layout_height="wrap_content"
+            android:text="@string/Configurar" />
+
+        <Button 
+            android:id="@+id/button3"
+            android:layout_width="fill_parent"
+   			android:layout_height="wrap_content"
+            android:text="@string/Acercade" />
+
+        <Button 
+            android:id="@+id/button4"
+            android:layout_width="fill_parent"
+   			android:layout_height="wrap_content"
+            android:text="@string/Salir" />    
+
+</LinearLayout>

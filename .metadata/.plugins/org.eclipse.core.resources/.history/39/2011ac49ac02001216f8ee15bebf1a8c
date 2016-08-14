@@ -1,0 +1,791 @@
+package es.cvmaker.upv.aplicacion;
+
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Spinner;
+import android.widget.TabHost;
+import android.widget.TextView;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
+import es.cvmaker.upv.R;
+
+
+
+
+public class Actividad_Editar extends SherlockFragmentActivity {
+
+	ViewPager mViewPager;
+	TabsAdapter mTabsAdapter;
+	TextView tabCenter;
+	TextView tabText;
+
+	int maxModulos = 2;
+	public static int maxEntradas = 7;
+	TabHost tabHost;
+	// layouts del tab que contiene todos los modulos
+	LinearLayout cvLayoutModulos[] = new LinearLayout[maxEntradas];
+	// array de layouts donde se mete cada modulo
+	View cvLayoutModulo[][] = new View[maxEntradas][maxModulos];
+	View tabExtra[] = new View[maxEntradas];
+	// array de layouts que contiene el mas_menos
+	RelativeLayout cvLayoutMasMenos[] = new RelativeLayout[maxEntradas];
+	// Ojo,al maxEntradas [cv2 cv3 cv4 cv6 ... maxEntradas] <- Es donde hay
+	// modulos
+	Integer cvContadorModulos[] = new Integer[maxEntradas];
+	int tagTabActual;
+	static int id = 1;
+	
+	// / / / / / / / / / / / / / / / / /CV2 / / / / / / / / / / / / / / / /
+	EditText cv2EditLocalidad[] = new EditText[maxModulos];
+	EditText cv2EditCentro[] = new EditText[maxModulos];
+	EditText cv2EditEstudios[] = new EditText[maxModulos];
+	// / / / / / / / / / / / / / / / / /CV3 / / / / / / / / / / / / / / / /
+	EditText cv3EditTrabajo[] = new EditText[maxModulos];
+	EditText cv3EditEmpresa[] = new EditText[maxModulos];
+	EditText cv3EditDescripcion[] = new EditText[maxModulos];
+	// / / / / / / / / / / / / / / / / /CV2 y CV3 / / / / / / / / / / / / / / /
+	// /
+	// array spinners año inicio de todos los tabs y modulos
+	Spinner spinnerArray1[][] = new Spinner[2][maxModulos];
+	// array spinners año fin de todos los tabs y modulos
+	Spinner spinnerArray2[][] = new Spinner[2][maxModulos];
+	// Ojo solo hay spinners en cv2 y cv3
+	// la primera dimension de los spinners te dice en que cv se encuentra: cv2
+	// o cv3
+	String spinnerItemSeleccionado1[][] = new String[2][maxModulos];
+	String spinnerItemSeleccionado2[][] = new String[2][maxModulos];
+	// respectivos listeners de los spinners
+	MyOnItemSelectedListener spinnerListener1[][] = new MyOnItemSelectedListener[2][maxModulos];
+	MyOnItemSelectedListener spinnerListener2[][] = new MyOnItemSelectedListener[2][maxModulos];
+	// / / / / / / / / / / / / / / / / /CV4 / / / / / / / / / / / / / / / /
+	// la primera dimension es para los 3 tipos de habilidad(Escrito,hablado,y
+	// lectura)
+	SeekBar cv4SeekBarIdioma[][] = new SeekBar[3][maxModulos];
+	TextView cv4TextViewIdioma[][] = new TextView[3][maxModulos];
+	EditText cv4EditIdioma[] = new EditText[maxModulos];
+	// / / / / / / / / / / / / / / / / /CV5 / / / / / / / / / / / / / / / /
+	CheckBox cv5CheckBox_1;
+	CheckBox cv5CheckBox_2;
+	CheckBox cv5CheckBox_3;
+	CheckBox cv5CheckBox_4;
+	// / / / / / / / / / / / / / / / / /CV5 / / / / / / / / / / / / / / / /
+	EditText cv6EditTitulo[] = new EditText[maxEntradas];
+	EditText cv6EditSubtitulo[][] = new EditText[maxEntradas][maxModulos];
+	EditText cv6EditCampo[][] = new EditText[maxEntradas][maxModulos];
+	int contadorGenericoExtra = 0;
+	// / / / / / / / / / / / / / / / / /CV6 / / / / / / / / / / / / / / / /
+	int idTabExtra;
+	int tagTabCreado;
+	int tabActual;
+	int tabCreado;
+
+	public static class TabsAdapter extends FragmentPagerAdapter implements
+			ActionBar.TabListener, ViewPager.OnPageChangeListener {
+		private final Context mContext;
+		private final ActionBar mActionBar;
+		private final ViewPager mViewPager;
+		private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+
+		static final class TabInfo {
+			private final Class<?> clss;
+			private final Bundle args;
+
+			TabInfo(Class<?> _class, Bundle _args) {
+				clss = _class;
+				args = _args;
+			}
+		}
+
+		public TabsAdapter(SherlockFragmentActivity activity, ViewPager pager) {
+			super(activity.getSupportFragmentManager());
+			mContext = activity;
+			mActionBar = activity.getSupportActionBar();
+			mViewPager = pager;
+			mViewPager.setAdapter(this);
+			mViewPager.setOnPageChangeListener(this);
+		}
+
+		public void addTab(ActionBar.Tab tab, Class<?> clss, Bundle args) {
+			TabInfo info = new TabInfo(clss, args);
+			tab.setTag(info);
+			tab.setTabListener(this);
+			mTabs.add(info);
+			mActionBar.addTab(tab);
+			notifyDataSetChanged();
+		}
+
+		@Override
+		public int getCount() {
+			return mTabs.size();
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			TabInfo info = mTabs.get(position);
+			return Fragment.instantiate(mContext, info.clss.getName(),
+					info.args);
+		}
+
+		public void onPageScrolled(int position, float positionOffset,
+				int positionOffsetPixels) {
+		}
+
+		public void onPageSelected(int position) {
+			mActionBar.setSelectedNavigationItem(position);
+		}
+
+		public void onPageScrollStateChanged(int state) {
+		}
+
+		public void onTabSelected(Tab tab, FragmentTransaction ft) {
+			Object tag = tab.getTag();
+			for (int i = 0; i < mTabs.size(); i++) {
+				if (mTabs.get(i) == tag) {
+					mViewPager.setCurrentItem(i);
+				}
+			}
+		}
+
+		public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		}
+
+		public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		}
+	}
+
+	
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.actividad_cv_scroll_tab);
+		// Defino los tabs
+//		ActionBar ab = getSupportActionBar();
+//		// ab.setDisplayShowTitleEnabled(false);
+//		// ab.setDisplayUseLogoEnabled(true);
+//		// ab.setDisplayHomeAsUpEnabled(false);
+//		// Con esto preparo el listMenu
+//		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+//				getBaseContext(), R.array.menuItems,
+//				R.layout.sherlock_spinner_item);
+//		adapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+//		ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+//
+//		ActionBar.OnNavigationListener navigationListener = new OnNavigationListener() {
+//			public boolean onNavigationItemSelected(int itemPosition,
+//					long itemId) {
+//				Toast.makeText(getBaseContext(), "waaaa", Toast.LENGTH_SHORT)
+//						.show();
+//				return false;
+//			}
+//		};
+//
+//		getSupportActionBar().setListNavigationCallbacks(adapter,
+//				navigationListener);
+//		adapter.setDropDownViewResource(es.cvmaker.upv.R.layout.sherlock_spinner_dropdown_item);
+
+		mViewPager = new ViewPager(this);
+		mViewPager.setId(R.id.paginas);
+
+		setContentView(mViewPager);
+		ActionBar bar = getSupportActionBar();
+		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		mTabsAdapter = new TabsAdapter(this, mViewPager);
+
+		mTabsAdapter.addTab(bar.newTab().setText(getResources().getString(R.string.cv1Titulo)),
+				ActividadEditar1.class, null);
+		mTabsAdapter.addTab(bar.newTab().setText(getResources().getString(R.string.cv2Titulo)),
+				ActividadEditar2.class, null);
+		mTabsAdapter.addTab(bar.newTab().setText(getResources().getString(R.string.cv3Titulo)),
+				ActividadEditar3.class, null);
+		mTabsAdapter.addTab(bar.newTab().setText(getResources().getString(R.string.cv4Titulo)),
+				ActividadEditar4.class, null);
+		mTabsAdapter.addTab(bar.newTab().setText(getResources().getString(R.string.cv5Titulo)),
+				ActividadEditar5.class, null);
+		mTabsAdapter.addTab(bar.newTab().setText(getResources().getString(R.string.cv6Titulo)),
+				ActividadEditar6.class, null);
+
+
+		// tabHost = getTabHost();
+		// tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Titulo1",
+		// null)
+		// .setContent(R.id.tab1Layout));
+		// tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Titulo2",
+		// null)
+		// .setContent(R.id.tab2Layout));
+		// tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("Titulo3",
+		// null)
+		// .setContent(R.id.tab3Layout));
+		// tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("Titulo4",
+		// null)
+		// .setContent(R.id.tab4Layout));
+		// tabHost.addTab(tabHost.newTabSpec("tab5").setIndicator("Titulo5",
+		// null)
+		// .setContent(R.id.tab5Layout));
+		// tabHost.addTab(tabHost.newTabSpec("tab6").setIndicator("Titulo6",
+		// null)
+		// .setContent(R.id.tab6Layout));
+		//
+		// for (int j = 0; j < tabHost.getTabWidget().getChildCount(); j++) {
+		// setTabWidth(j);
+		// }
+		// // tabHost.addTab(tabHost.newTabSpec("tab7").setIndicator("Titulo7",
+		// // null)
+		// // .setContent(R.id.tab7Layout));
+		// for (int j = 0; j < cvContadorModulos.length; j++) {
+		// cvContadorModulos[j] = 0; // Inicializo contadores de modulos
+		// }
+		
+	// / / / / / / / / / / / / / / / / /CV1 / / / / / / / / / / / / / / / /
+//			// / /
+//			// Defino datePicker
+//			cv1DatePicker = (DatePicker) findViewById(R.id.cv1DatePicker);
+//			// datePicker.getDayOfMonth();
+//			// datePicker.getMonth();
+//			// datePicker.getYear();
+//			// Pongo en la foto la silueta
+//			ImageView imageView = (ImageView) findViewById(R.id.cv1ImageViewFoto);
+//			Drawable drawable = getResources().getDrawable(R.drawable.silueta);
+//			imageView.setImageResource(0); // ¿hace falta?
+//			imageView.setImageDrawable(drawable);
+//			// Defino los EditText
+//			cv1EditNombre = (EditText) findViewById(R.id.cv1EditNombre);
+//			cv1EditEmail = (EditText) findViewById(R.id.cv1EditEmail);
+//			cv1EditLocalidad = (EditText) findViewById(R.id.cv1EditLocalidad);
+//			cv1EditTelefono = (EditText) findViewById(R.id.cv1EditTelefono);
+//			/ / / / / / / / / / / / / / / / / /CV2 / / / / / / / / / / / / / / / /
+		// / / / / / / / / / / / / / / / / /CV2 / / / / / / / / / / / / / / / /
+		Fragment f=mTabsAdapter.getItem(1);
+Log.i("manolo",f.getTag().toString());
+				cvLayoutModulos[0] = (LinearLayout) f.getView().findViewById(R.id.cv2LayoutModulos);
+				cvLayoutModulo[0][cvContadorModulos[0]] = (View) f.getView().findViewById(R.id.cv2LayoutModulo);
+//				setSpinner(R.array.ano, R.id.cv2SpinnerAnoInicio,
+//						R.id.cv2SpinnerAnoInicio, 0, 0, cvContadorModulos[0]);
+//				setSpinner(R.array.ano, R.id.cv2SpinnerAnoInicio,
+//						R.id.cv2SpinnerAnoFin, 0, 1, cvContadorModulos[0]);
+//				listenSpinner(0, 1, 0);
+//				listenSpinner(0, 2, 0);
+
+		 // Defino los EditText
+		cv2EditEstudios[cvContadorModulos[0]] = (EditText) cvLayoutModulo[0][cvContadorModulos[0]]
+				.findViewById(R.id.cv2EditEstudios);
+//		cv2EditCentro[cvContadorModulos[0]] = (EditText) cvLayoutModulo[0][cvContadorModulos[0]]
+//				.findViewById(R.id.cv2EditCentro);
+//		cv2EditLocalidad[cvContadorModulos[0]] = (EditText) cvLayoutModulo[0][cvContadorModulos[0]]
+//				.findViewById(R.id.cv2EditLocalidad);
+//		 // / / / / / / / / / / / / / / / / /CV3 / / / / / / / / / / / / / / /
+//		 cvLayoutModulos[1] = (LinearLayout)
+//		 findViewById(R.id.cv3LayoutModulos);
+//		 cvLayoutModulo[1][cvContadorModulos[1]] = (View)
+//		 findViewById(R.id.cv3LayoutModulo);
+//		 setSpinner(R.array.ano, R.id.cv3SpinnerAnoInicio,
+//		 R.id.cv3SpinnerAnoFin, 1, 0, cvContadorModulos[1]);
+//		 setSpinner(R.array.ano, R.id.cv3SpinnerAnoInicio,
+//		 R.id.cv3SpinnerAnoFin, 1, 1, cvContadorModulos[1]);
+//		 listenSpinner(1, 1, 0);
+//		 listenSpinner(1, 2, 0);
+//		 // Defino los EditText
+//		 cv3EditTrabajo[cvContadorModulos[1]] = (EditText)
+//		 cvLayoutModulo[1][cvContadorModulos[1]]
+//		 .findViewById(R.id.cv3EditTrabajo);
+//		 cv3EditEmpresa[cvContadorModulos[1]] = (EditText)
+//		 cvLayoutModulo[1][cvContadorModulos[1]]
+//		 .findViewById(R.id.cv3EditEmpresa);
+//		 cv3EditDescripcion[cvContadorModulos[1]] = (EditText)
+//		 cvLayoutModulo[1][cvContadorModulos[1]]
+//		 .findViewById(R.id.cv3EditDescripcion);
+//		 // / / / / / / / / / / / / / / / / /CV4 / / / / / / / / / / / / / / /
+//		 cvLayoutModulos[2] = (LinearLayout)
+//		 findViewById(R.id.cv4LayoutModulos);
+//		 cvLayoutModulo[2][cvContadorModulos[2]] = (View)
+//		 findViewById(R.id.cv4LayoutModulo);
+//		 setSeekBar(0, cvContadorModulos[2], R.id.cv4SeekBarHablado,
+//		 R.id.cv4TextViewSeekBarHablado);
+//		 setSeekBar(1, cvContadorModulos[2], R.id.cv4SeekBarEscrito,
+//		 R.id.cv4TextViewSeekBarEscrito);
+//		 setSeekBar(2, cvContadorModulos[2], R.id.cv4SeekBarLectura,
+//		 R.id.cv4TextViewSeekBarLectura);
+//		 listenSeekBars(cvContadorModulos[2]);
+//		 // / / / / / / / / / / / / / / / / /CV5 / / / / / / / / / / / / / / /
+//		 cv5CheckBox_1 = (CheckBox) findViewById(R.id.cv5CheckBox1);
+//		 cv5CheckBox_2 = (CheckBox) findViewById(R.id.cv5CheckBox2);
+//		 cv5CheckBox_3 = (CheckBox) findViewById(R.id.cv5CheckBox3);
+//		 cv5CheckBox_4 = (CheckBox) findViewById(R.id.cv5CheckBox4);
+//		 // / / / / / / / / / / / / / / / / /CV6 / / / / / / / / / / / / / / /
+//		 cvLayoutModulos[3] = (LinearLayout)
+//		 findViewById(R.id.cv6LayoutModulos);
+//		 cvLayoutModulo[3][cvContadorModulos[3]] = (View)
+//		 findViewById(R.id.cv6LayoutModulo);
+//		 cv6EditTitulo[0] = (EditText) findViewById(R.id.cv6EditTituloCampo);
+//		 cv6EditSubtitulo[0][cvContadorModulos[3]] = (EditText)
+//		 findViewById(R.id.cv6EditSubtituloCampo);
+//		 cv6EditCampo[0][cvContadorModulos[3]] = (EditText)
+//		 findViewById(R.id.cv6EditCampo);
+
+	}
+
+//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//		if (requestCode == PETICION_CARGARFOTO & resultCode == RESULT_OK) {
+//			rutaFicheroSeleccionado = data.getExtras().getString(
+//					"RutaArchivoSeleccionado");
+//			File imgFile = new File(rutaFicheroSeleccionado);
+//			if (imgFile.exists()) {
+//				Bitmap myBitmap = BitmapFactory.decodeFile(imgFile
+//						.getAbsolutePath());
+//				ImageView myImage = (ImageView) findViewById(R.id.cv1ImageViewFoto);
+//				myImage.setImageBitmap(myBitmap);
+//			}
+//		}
+//		if (requestCode == PETICION_CAMARA & resultCode == RESULT_OK) {
+//			Bitmap photo = (Bitmap) data.getExtras().get("data");
+//			ImageView imageView = (ImageView) findViewById(R.id.cv1ImageViewFoto);
+//			imageView.setImageBitmap(photo);
+//		}
+//	}
+
+	public void setSeekBar(int Habilidad, int cvContador, int resSeekBarId,
+			int resTextView) {
+		cv4SeekBarIdioma[Habilidad][cvContador] = (SeekBar) cvLayoutModulo[2][cvContador]
+				.findViewById(resSeekBarId);
+		cv4SeekBarIdioma[Habilidad][cvContador].setMax(100);
+		cv4SeekBarIdioma[Habilidad][cvContador].setProgress(30);
+		cv4TextViewIdioma[Habilidad][cvContador] = (TextView) cvLayoutModulo[2][cvContador]
+				.findViewById(resTextView);
+		cv4TextViewIdioma[Habilidad][cvContador].setText("Bueno");
+	}
+
+	public void listenSeekBars(final int cvContador) {
+		cv4SeekBarIdioma[0][cvContador]
+				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+					public void onProgressChanged(SeekBar seekBar,
+							int progress, boolean fromUser) {
+						if (seekBar.getProgress() < 25) {
+							cv4TextViewIdioma[0][cvContador].setText("Regular");
+						} else if (seekBar.getProgress() < 50) {
+							cv4TextViewIdioma[0][cvContador].setText("Bueno");
+						} else if (seekBar.getProgress() < 75) {
+							cv4TextViewIdioma[0][cvContador]
+									.setText("Muy bueno");
+						} else {
+							cv4TextViewIdioma[0][cvContador]
+									.setText("Excelente");
+						}
+					}
+
+					public void onStartTrackingTouch(SeekBar seekBar) {
+					}
+
+					public void onStopTrackingTouch(SeekBar seekBar) {
+					}
+				});
+		cv4SeekBarIdioma[1][cvContador]
+				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+					public void onProgressChanged(SeekBar seekBar,
+							int progress, boolean fromUser) {
+						if (seekBar.getProgress() < 25) {
+							cv4TextViewIdioma[1][cvContador].setText("Regular");
+						}
+						if (seekBar.getProgress() > 25
+								&& seekBar.getProgress() < 50) {
+							cv4TextViewIdioma[1][cvContador].setText("Bueno");
+						}
+						if (seekBar.getProgress() > 50
+								&& seekBar.getProgress() < 75) {
+							cv4TextViewIdioma[1][cvContador]
+									.setText("Muy bueno");
+						}
+						if (seekBar.getProgress() > 75) {
+							cv4TextViewIdioma[1][cvContador]
+									.setText("Excelente");
+						}
+					}
+
+					public void onStartTrackingTouch(SeekBar seekBar) {
+					}
+
+					public void onStopTrackingTouch(SeekBar seekBar) {
+					}
+				});
+		cv4SeekBarIdioma[2][cvContador]
+				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+					public void onProgressChanged(SeekBar seekBar,
+							int progress, boolean fromUser) {
+						if (seekBar.getProgress() < 25) {
+							cv4TextViewIdioma[2][cvContador].setText("Regular");
+						}
+						if (seekBar.getProgress() > 25
+								&& seekBar.getProgress() < 50) {
+							cv4TextViewIdioma[2][cvContador].setText("Bueno");
+						}
+						if (seekBar.getProgress() > 50
+								&& seekBar.getProgress() < 75) {
+							cv4TextViewIdioma[2][cvContador]
+									.setText("Muy bueno");
+						}
+						if (seekBar.getProgress() > 75) {
+							cv4TextViewIdioma[2][cvContador]
+									.setText("Excelente");
+						}
+					}
+
+					public void onStartTrackingTouch(SeekBar seekBar) {
+					}
+
+					public void onStopTrackingTouch(SeekBar seekBar) {
+					}
+				});
+	}
+
+	public void setSpinner(int resStringId, int resSpinnerInicioId,
+			int resSpinnerFinId, int cv, int pos, int cvContador) {
+		String[] stringItemsSpinner = getResources()
+				.getStringArray(resStringId);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, stringItemsSpinner);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		if (pos == 0) {
+			spinnerArray1[cv][cvContador] = (Spinner) cvLayoutModulo[cv][cvContador]
+					.findViewById(resSpinnerInicioId);
+			spinnerArray1[cv][cvContador].setAdapter(adapter);
+			spinnerArray1[cv][cvContador].setSelection(58);
+		} else {
+			spinnerArray2[cv][cvContador] = (Spinner) cvLayoutModulo[cv][cvContador]
+					.findViewById(resSpinnerFinId);
+			spinnerArray2[cv][cvContador].setAdapter(adapter);
+			spinnerArray2[cv][cvContador].setSelection(68);
+		}
+	}
+
+	public void listenSpinner(int cv, int pos, int cvContador) {
+		if (pos == 0) {
+			spinnerListener1[cv][cvContador] = new MyOnItemSelectedListener();
+			spinnerArray1[cv][cvContador]
+					.setOnItemSelectedListener(spinnerListener1[cv][cvContador]);
+			spinnerItemSeleccionado1[cv][cvContador] = spinnerListener1[cv][cvContador]
+					.getSeleccion();
+		} else {
+			spinnerListener2[cv][cvContador] = new MyOnItemSelectedListener();
+			spinnerArray2[cv][cvContador]
+					.setOnItemSelectedListener(spinnerListener1[cv][cvContador]);
+			spinnerItemSeleccionado2[cv][cvContador] = spinnerListener2[cv][cvContador]
+					.getSeleccion();
+
+		}
+	}
+
+	public void lanzarcvMas(View view) {
+		// cojo el tag del layout madre de cada tab
+		View view2 = (View) view.getParent().getParent().getParent()
+				.getParent();
+		tagTabActual = Integer.parseInt(view2.getTag().toString());
+		int RLayoutModulos = 0, RBotonMas = 0, RBotonMenos = 0, RLayoutModulo = 0, RLayoutMasMenos = 0;
+		// cv=0 - Tab2-Academicos // cv=1 Tab3-Laboral//
+		// cv=2 Tab4-Idiomas // cv=3 -Tab6 Generico
+		// cv=[4 maxEntradas] - Tab7... Tab"x" Genericos extras
+		// Recordar que el contador de modulos la misma relacion:
+		// [0:Tab2 1:tab3 2:tab4 3:tab6 4:tab7xtra ... maxEntradas] <- Es donde
+		// hay modulos
+		switch (tagTabActual) {
+		case 0:
+			RLayoutModulos = R.id.cv2LayoutModulos;
+			RBotonMas = R.id.cv2BotonMas;
+			RBotonMenos = R.id.cv2BotonMenos;
+			RLayoutMasMenos = R.layout.actividad_cv2_datosacademicos_mas_menos;
+			RLayoutModulo = R.layout.actividad_cv2_datosacademicos_modulo;
+			break;
+		case 1:
+			RLayoutModulos = R.id.cv3LayoutModulos;
+			RBotonMas = R.id.cv3BotonMas;
+			RBotonMenos = R.id.cv3BotonMenos;
+			RLayoutMasMenos = R.layout.actividad_cv3_experiencialaboral_mas_menos;
+			RLayoutModulo = R.layout.actividad_cv3_experiencialaboral_modulo;
+			break;
+		case 2:
+			RLayoutModulos = R.id.cv4LayoutModulos;
+			RBotonMas = R.id.cv4BotonMas;
+			RBotonMenos = R.id.cv4BotonMenos;
+			RLayoutMasMenos = R.layout.actividad_cv4_idiomas_mas_menos;
+			RLayoutModulo = R.layout.actividad_cv4_idiomas_modulo;
+			break;
+		case 3:
+			RLayoutModulos = R.id.cv6LayoutModulos;
+			RBotonMas = R.id.cv6BotonMas;
+			RBotonMenos = R.id.cv6BotonMenos;
+			RLayoutMasMenos = R.layout.actividad_cv6_generico_mas_menos;
+			RLayoutModulo = R.layout.actividad_cv6_generico_modulo;
+			break;
+		default:
+			RLayoutModulos = R.id.cv6LayoutModulos;
+			RBotonMas = R.id.cv6BotonMas;
+			RBotonMenos = R.id.cv6BotonMenos;
+			RLayoutMasMenos = R.layout.actividad_cv6_generico_mas_menos;
+			RLayoutModulo = R.layout.actividad_cv6_generico_modulo;
+			break;
+		}
+		// Ahora, añado un nuevo modulo
+		cvContadorModulos[tagTabActual]++;
+		if (cvContadorModulos[tagTabActual] < maxModulos) {
+			if (tagTabActual <= 3) {
+				// Añado el layout correspondiete
+				// Ojo!!!! a partir del tag 4, esto se define en la funcion
+				// lanzar nuevo,si no pongo esta condicion se sobreescribe
+				cvLayoutModulos[tagTabActual] = (LinearLayout) findViewById(RLayoutModulos);
+			}
+			// Añado con inflate. Lo hago en dos pasos en este paso previo me
+			// guardo en un View el nuevo modulo
+			cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]] = this
+					.getLayoutInflater().inflate(RLayoutModulo, null, true);
+			// Añado este modulo en su layout de modulos
+			cvLayoutModulos[tagTabActual]
+					.addView(
+							cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]],
+							cvContadorModulos[tagTabActual]);
+			// Añado el layout de los botones mas menos de nuevo
+			Button botonMenos2 = (Button) cvLayoutModulos[tagTabActual]
+					.findViewById(RBotonMenos);
+			botonMenos2.setVisibility(ImageButton.VISIBLE);// Boton menos
+															// visible
+			if (cvContadorModulos[tagTabActual] == maxModulos - 1) {
+				Button botonMas2 = (Button) cvLayoutModulos[tagTabActual]
+						.findViewById(RBotonMas);
+				botonMas2.setEnabled(false);
+			}
+		}
+		switch (tagTabActual) {
+		case 0:
+			// Defino los nuevos EditText
+			cv2EditEstudios[cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv2EditEstudios);
+			cv2EditCentro[cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv2EditCentro);
+			cv2EditLocalidad[cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv2EditLocalidad);
+			// Preparo los nuevos Spinners
+			setSpinner(R.array.ano, R.id.cv2SpinnerAnoInicio,
+					R.id.cv2SpinnerAnoFin, tagTabActual, 0,
+					cvContadorModulos[tagTabActual]);
+			listenSpinner(tagTabActual, 0, cvContadorModulos[tagTabActual]);
+			setSpinner(R.array.ano, R.id.cv2SpinnerAnoInicio,
+					R.id.cv2SpinnerAnoFin, tagTabActual, 1,
+					cvContadorModulos[tagTabActual]);
+			listenSpinner(tagTabActual, 1, cvContadorModulos[tagTabActual]);
+			break;
+		case 1:
+			// Defino los nuevos EditText
+			cv3EditTrabajo[cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv3EditTrabajo);
+			cv3EditEmpresa[cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv3EditEmpresa);
+			cv3EditDescripcion[cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv3EditDescripcion);
+			// Preparo los nuevos Spinners
+			setSpinner(R.array.ano, R.id.cv3SpinnerAnoInicio,
+					R.id.cv3SpinnerAnoFin, tagTabActual, 0,
+					cvContadorModulos[tagTabActual]);
+			listenSpinner(tagTabActual, 0, cvContadorModulos[tagTabActual]);
+			setSpinner(R.array.ano, R.id.cv3SpinnerAnoInicio,
+					R.id.cv3SpinnerAnoFin, tagTabActual, 1,
+					cvContadorModulos[tagTabActual]);
+			listenSpinner(tagTabActual, 1, cvContadorModulos[tagTabActual]);
+			break;
+		case 2:
+			// Defino el nuevo EditText
+			cv4EditIdioma[cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv4EditIdioma);
+			// Defino los nuevos SeekBars
+			setSeekBar(0, cvContadorModulos[tagTabActual],
+					R.id.cv4SeekBarHablado, R.id.cv4TextViewSeekBarHablado);
+			setSeekBar(1, cvContadorModulos[tagTabActual],
+					R.id.cv4SeekBarEscrito, R.id.cv4TextViewSeekBarEscrito);
+			setSeekBar(2, cvContadorModulos[tagTabActual],
+					R.id.cv4SeekBarLectura, R.id.cv4TextViewSeekBarLectura);
+			listenSeekBars(cvContadorModulos[tagTabActual]);
+			break;
+		case 3:
+			cv6EditSubtitulo[tagTabActual][cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv6EditSubtituloCampo);
+			cv6EditCampo[tagTabActual][cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv6EditCampo);
+			break;
+		default:
+			cv6EditSubtitulo[tagTabActual][cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv6EditSubtituloCampo);
+			cv6EditCampo[tagTabActual][cvContadorModulos[tagTabActual]] = (EditText) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual]]
+					.findViewById(R.id.cv6EditCampo);
+			break;
+		}
+	}
+
+	public void lanzarcvMenos(View view) {
+		View view2 = (View) view.getParent().getParent().getParent()
+				.getParent(); // cojo el tag del layout madre de cada tab
+		if (cvContadorModulos[tagTabActual] > 0) {
+			cvContadorModulos[tagTabActual]--;
+			// Borro el modulo mas menos anterior
+			((ViewManager) cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual] + 1]
+					.getParent())
+					.removeView(cvLayoutModulo[tagTabActual][cvContadorModulos[tagTabActual] + 1]);
+			// Si solo hay un modulo desaparece el botón menos
+			if (cvContadorModulos[tagTabActual] == 0) {
+				view.setVisibility(ImageButton.INVISIBLE);
+			}
+		}
+		// Pongo el botonMas a Enabled de nuevo:
+		if (cvContadorModulos[tagTabActual] < maxEntradas) {
+			// Recojo el botón mas hermano del menos que invocado esta funcion
+			// para poder reactivarlo
+			RelativeLayout aux = (RelativeLayout) view.getParent();
+			Button botonMas = (Button) aux.getChildAt(0);
+			botonMas.setEnabled(true);
+		}
+	}
+
+	public void cvLanzarNuevoGenerico(View view) {
+		contadorGenericoExtra++;
+		View view2 = (View) view.getParent().getParent();
+		// Primero activo el boton siguiente del layout generico correspondiente
+		view2.findViewById(R.id.cv6BotonSiguiente).setEnabled(true);
+
+		tagTabActual = Integer.parseInt(view2.getTag().toString());
+		tagTabCreado = tagTabActual + 1;
+		tabActual = tagTabActual + 3;
+		tabCreado = tabActual + 1;
+
+		// tabHost.getTabWidget()
+		// .getChildAt(tabCreado - 2 + contadorGenericoExtra)
+		// .setVisibility(View.GONE);
+
+		// Comienzo con la parte de inflar un nuevo tab
+		FrameLayout scrollFrame = (FrameLayout) findViewById(android.R.id.tabcontent);
+		// Estoy creando el tab numero tabcreado.
+		// Añado con inflate. Lo hago en dos pasos en este paso previo me guardo
+		// en un View
+		// el nuevo modulo
+		tabExtra[contadorGenericoExtra - 1] = (View) this.getLayoutInflater()
+				.inflate(R.layout.actividad_cv6_generico, null, true);
+		tabExtra[contadorGenericoExtra - 1].setTag(tagTabCreado);
+		idTabExtra = findId();
+		tabExtra[contadorGenericoExtra - 1].setId(idTabExtra);
+		// Añado este modulo en su layout (Frame con Scroll) de modulos
+		scrollFrame.addView(tabExtra[contadorGenericoExtra - 1]);
+		tabHost.addTab(tabHost.newTabSpec("tab" + Integer.toString(tabCreado))
+				.setIndicator("Titulo" + Integer.toString(tabCreado), null)
+				.setContent(idTabExtra));
+		// Ahoro el boton nuevo del tab que se ha lanzado se borra
+		((ViewManager) view.getParent()).removeView(view);
+		// Defino los elementos de los nuevos tabs
+		// Recordar que los modulos con "+" para añadir informacion son:[cv2 cv3
+		// cv4 cv6 cv7... maxEntradas]
+		// Así que la primera posicion a usar aqui seria la 4 ->tagTabCreado
+		cvLayoutModulos[tagTabCreado] = (LinearLayout) tabExtra[contadorGenericoExtra - 1]
+				.findViewById(R.id.cv6LayoutModulos);
+		cvLayoutModulo[tagTabCreado][cvContadorModulos[tagTabCreado]] = (View) tabExtra[contadorGenericoExtra - 1]
+				.findViewById(R.id.cv6LayoutModulo);
+		//
+		cv6EditTitulo[contadorGenericoExtra] = (EditText) cvLayoutModulo[tagTabCreado][cvContadorModulos[tagTabCreado]]
+				.findViewById(R.id.cv6EditTituloCampo);
+		cv6EditSubtitulo[contadorGenericoExtra][cvContadorModulos[tagTabCreado]] = (EditText) cvLayoutModulo[tagTabCreado][cvContadorModulos[tagTabCreado]]
+				.findViewById(R.id.cv6EditSubtituloCampo);
+		cv6EditCampo[contadorGenericoExtra][cvContadorModulos[tagTabCreado]] = (EditText) cvLayoutModulo[tagTabCreado][cvContadorModulos[tagTabCreado]]
+				.findViewById(R.id.cv6EditCampo);
+		// // Ahora vuelvo a incluir el tab finalizar
+		// int idTabFin = findId();
+		// View tabFin = (View) this.getLayoutInflater().inflate(
+		// R.layout.actividad_cv_fin, null, true);
+		// tabFin.setId(idTabFin);
+		// FrameLayout scrollFrame2 = (FrameLayout)
+		// findViewById(android.R.id.tabcontent);
+		// scrollFrame2.addView(tabFin);
+		// tabHost.addTab(tabHost
+		// .newTabSpec("tab" + Integer.toString(ta bCreado + 1))
+		// .setIndicator("Titulo" + Integer.toString(tabCreado + 1), null)
+		// .setContent(idTabFin));
+		// Esta linea funciona pero la de abajo no y no tendria sentido usarla
+		tabHost.getTabWidget().setCurrentTab(tabCreado + 1);
+		// contadorGenericoExtra + 1 + tagTabCreado);
+		// No funciona
+		tabHost.setCurrentTabByTag("tab" + Integer.toString(tabCreado));
+
+		// centerTabItem(tabCreado+1);
+//		setTabWidth(tabCreado - 1);
+
+		if (tagTabCreado == maxEntradas - 1) {
+			// Busco el boton nuevo del layout generado
+			View view3 = (View) cvLayoutModulos[tagTabCreado].getParent()
+					.getParent();
+			// Ya no puedo poner mas genericos. desactivo y no hay btn siguiente
+			Button botonNuevo = (Button) view3
+					.findViewById(R.id.cv6BotonNuevoGenerico);
+			botonNuevo.setEnabled(false);
+			botonNuevo.setText(R.string.cv6_max);
+			view3.findViewById(R.id.cv6BotonSiguiente).setVisibility(View.GONE);
+		} else {
+			View view3 = (View) cvLayoutModulos[tagTabCreado].getParent()
+					.getParent();
+			view3.findViewById(R.id.cv6BotonNuevoGenerico).setEnabled(true);
+		}
+
+	}
+
+	// public void centerTabItem(int position) {
+	// tabHost.setCurrentTab(position);
+	// final TabWidget tabWidget = tabHost.getTabWidget();
+	// final int screenWidth = getWindowManager().getDefaultDisplay()
+	// .getWidth();
+	// final int leftX = (int)tabWidget.getChildAt(position).getLeft();
+	// int newX = 0;
+	//
+	// newX = leftX + (tabWidget.getChildAt(position).getWidth() / 2)
+	// - (screenWidth / 2);
+	// if (newX < 0) {
+	// newX = 0;
+	// }
+	// HorizontalScrollView horizontaScrollView = (HorizontalScrollView)
+	// findViewById(R.id.cvHorizontallScrollView);
+	// horizontaScrollView.scrollTo(newX, 0);
+	// }
+
+	public void cvLanzarSiguiente(View view) {
+//		tabHost.setCurrentTab(tabHost.getCurrentTab() + 1);
+		Log.i("fragment dice",cv2EditEstudios[cvContadorModulos[0]].getText().toString());
+	}
+
+	public void cvLanzarAnterior(View view) {
+		tabHost.setCurrentTab(tabHost.getCurrentTab() - 1);
+	}
+
+	
+	// Returns a valid id that isn't in use
+	public int findId() {
+		View v = findViewById(id);
+		while (v != null) {
+			v = findViewById(++id);
+		}
+		return id++;
+	}
+
+
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;com.polites.android&apos; to &apos;GestureImageView/src&apos;&#x0D;&#x0A;- Original project: &apos;gesture-imageview&apos;&#x0D;&#x0A;- Destination element: &apos;GestureImageView/src&apos;&#x0D;&#x0A;- Original element: &apos;gesture-imageview/src/com.polites.android&apos;" description="Copy package" destination="=GestureImageView/src" element1="/src&lt;com.polites.android" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1350588776090" version="1.0"/>
+</session>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;ZoomableRelativeLayout.java&apos; to &apos;Page Curl Example/src/fi.harism.curl&apos;&#x0D;&#x0A;- Original project: &apos;PruebaZoom&apos;&#x0D;&#x0A;- Destination element: &apos;Page Curl Example/src/fi.harism.curl&apos;&#x0D;&#x0A;- Original element: &apos;com.example.pruebazoom.ZoomableRelativeLayout.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="=Page Curl Example/src&lt;fi.harism.curl" element1="/src&lt;com.example.pruebazoom{ZoomableRelativeLayout.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1350399040018" units="1" version="1.0"/>
+</session>

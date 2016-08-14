@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/video"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/cvBotonFin"/>
+
+    <item
+        android:id="@+id/computer"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/Editar"/>
+
+    <item
+        android:id="@+id/gamepad"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/Nuevo"/>
+
+    <item
+        android:id="@+id/camera"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/EjemploCV"/>
+
+    <item
+        android:id="@+id/phone"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/Abrir"/>
+
+</menu>

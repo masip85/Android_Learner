@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cv2LayoutModulo"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/cv2TextViewIdioma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/cv2Estudios" />
+
+    <EditText
+        android:id="@+id/cv2EditIdioma"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cv2TextViewEstudios" />
+
+    <TextView
+        android:id="@+id/cv2Periodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv2EditEstudios"
+        android:text="@string/cv2Periodo" />
+
+    <Spinner
+        android:id="@+id/cv2SpinnerAnoInicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv2Periodo" />
+
+    <Spinner
+        android:id="@+id/cv2SpinnerAnoFin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv2Periodo"
+        android:layout_toRightOf="@+id/cv2SpinnerAnoInicio" />
+
+    <TextView
+        android:id="@+id/cv2TextViewCentro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv2SpinnerAnoFin"
+        android:text="@string/cv2Centro" />
+
+    <EditText
+        android:id="@+id/cv2EditCentro"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv2SpinnerAnoFin"
+        android:layout_toRightOf="@+id/cv2TextViewCentro" />
+
+    <TextView
+        android:id="@+id/cv2Localidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv2EditCentro"
+        android:text="@string/cv1Localidad" />
+
+    <EditText
+        android:id="@+id/cv2EditLocalidad"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv2EditCentro"
+        android:layout_toRightOf="@+id/cv2Localidad" />
+
+</RelativeLayout>

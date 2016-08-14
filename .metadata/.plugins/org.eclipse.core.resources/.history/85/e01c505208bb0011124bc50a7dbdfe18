@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabConversor"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="7dip"
+        android:text="@string/cantidadEuros"
+        android:textSize="17dip" android:gravity="center"/>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow android:gravity="center">
+            <EditText
+                android:id="@+id/textCantidadEuros"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:s >
+            </EditText>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="euro2peseta"
+                android:text="@string/calcular" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textResultadoConversion"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dip"
+        android:textSize="17sp" android:gravity="center"/>
+
+</LinearLayout>    
+    

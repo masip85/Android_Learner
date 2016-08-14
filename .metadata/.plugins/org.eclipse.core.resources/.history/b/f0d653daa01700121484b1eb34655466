@@ -1,0 +1,29 @@
+
+
+    <com.example.pruebazoom.ZoomableRelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/RelativeLayout01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/fondo" >
+
+        <TextView 
+            android:id="@+id/t1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/hello_world"
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/t1"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="60dp"
+            android:text="@string/hello_world"
+            />
+    </com.example.pruebazoom.ZoomableRelativeLayout>
+

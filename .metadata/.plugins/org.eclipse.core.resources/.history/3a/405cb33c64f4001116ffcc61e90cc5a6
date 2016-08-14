@@ -1,0 +1,310 @@
+package es.cvmaker.upv.aplicacion;
+
+import java.io.File;
+
+import android.app.TabActivity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TabHost;
+import es.cvmaker.upv.R;
+
+public class Actividad_Editar extends TabActivity {
+	int maxModulos = 5;
+	int maxEntradas = 10;
+	TabHost tabHost = new TabHost(null);
+	LinearLayout cvLayoutModulos[] = new LinearLayout[10];  // layouts del tab  que contiene todos los modulos
+	View cvLayoutModulo[][] = new View[3][maxModulos]; // array de layouts donde se mete cada modulo
+	// Ojo,al 3 [cv2 cv3 cv4 cv5]
+	Spinner spinnerArray1[][] = new Spinner[3][maxModulos];  // array spinners año inicio de todos los tabs y modulos
+	Spinner spinnerArray2[][] = new Spinner[3][maxModulos]; // array spinners año fin de todos los tabs y modulos
+	String spinnerItemSeleccionado1[][] = new String[3][maxModulos];
+	String spinnerItemSeleccionado2[][] = new String[3][maxModulos];
+	MyOnItemSelectedListener spinnerListener1[][] = new MyOnItemSelectedListener[3][maxModulos]; // respectivos listeners de los spinners
+	MyOnItemSelectedListener spinnerListener2[][] = new MyOnItemSelectedListener[3][maxModulos];
+	String[] cv2AñoInicio,cv2AñoFin, cv3AñoInicio, cv3AñoFin, cv5AñoInicio, cv5AñoFin,
+	cv6AñoInicio, cv6AñoFin;
+	// / / / / / / / / / / / / / / / / /CV1 / / / / / / / / / / / / / / / / / /
+	Drawable foto;
+	public static final int PETICION_CAMARA = 2000;
+	public static final int PETICION_CARGARFOTO=1000;
+	String rutaFicheroSeleccionado="";
+	EditText cv1EditNombre;
+	EditText cv1EditEmail;
+	EditText cv1EditLocalidad;
+	EditText cv1EditTelefono;
+	// / / / / / / / / / / / / / / / / /CV2 / / / / / / / / / / / / / / / /
+	int cv2Contador = 0; // Contador del array ->modulos
+	EditText cv2EditLocalidad[]=new EditText[maxEntradas];
+	EditText cv2EditCentro[]=new EditText[maxEntradas];
+	EditText cv2EditEstudios[]=new EditText[maxEntradas];
+	
+	
+	
+	
+	
+	
+	
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.actividad_editar_scroll_tab);
+		
+		// Defino los tabs
+		tabHost = getTabHost();
+		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("", null)
+				.setContent(R.id.tab1Layout));
+		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Titulo2", null)
+				.setContent(R.id.tab2Layout));
+		tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("Titulo3", null)
+				.setContent(R.id.tab3Layout));
+		// / / / / / / / / / / / / / / / / /CV1 / / / / / / / / / / / / / / / / / /
+		// Defino datePicker
+		DatePicker datePicker = (DatePicker) findViewById(R.id.cv1DatePicker);
+		// datePicker.getDayOfMonth();
+		// datePicker.getMonth();
+		// datePicker.getYear();
+		// Pongo en la foto la silueta
+		ImageView imageView = (ImageView) findViewById(R.id.cv1ImageViewFoto);
+		Drawable drawable = getResources().getDrawable(R.drawable.silueta);
+		imageView.setImageResource(0); // ¿hace falta?
+		imageView.setImageDrawable(drawable);
+		// Defino los EditText
+		cv1EditNombre=(EditText)findViewById(R.id.cv1EditNombre);
+		cv1EditEmail=(EditText)findViewById(R.id.cv1EditEmail);
+		cv1EditLocalidad=(EditText)findViewById(R.id.cv1EditLocalidad);
+		cv1EditTelefono=(EditText)findViewById(R.id.cv1EditTelefono);
+
+		// / / / / / / / / / / / / / / / / /CV2 / / / / / / / / / / / / / / / /
+		cvLayoutModulos[0] = (LinearLayout) findViewById(R.id.cv2LayoutModulos);
+		cvLayoutModulo[0][cv2Contador] = (View) findViewById(R.id.cv2LayoutModulo);
+		setSpinner(R.array.ano, 0, 0, cv2Contador);
+		setSpinner(R.array.ano, 0, 1, cv2Contador);
+		// Defino los EditText
+		cv2EditEstudios[cv2Contador]=(EditText) cvLayoutModulo[0][cv2Contador].findViewById(R.id.cv2EditEstudios);
+		cv2EditCentro[cv2Contador]=(EditText) cvLayoutModulo[0][cv2Contador].findViewById(R.id.cv2EditLocalidad);
+		cv2EditLocalidad[cv2Contador]=(EditText) cvLayoutModulo[0][cv2Contador].findViewById(R.id.cv2EditLocalidad);
+		
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == PETICION_CARGARFOTO & resultCode == RESULT_OK) {
+			rutaFicheroSeleccionado = data.getExtras().getString(
+					"RutaArchivoSeleccionado");
+
+			File imgFile = new File(rutaFicheroSeleccionado);
+			if (imgFile.exists()) {
+				Bitmap myBitmap = BitmapFactory.decodeFile(imgFile
+						.getAbsolutePath());
+				ImageView myImage = (ImageView) findViewById(R.id.cv1ImageViewFoto);
+				myImage.setImageBitmap(myBitmap);
+			}
+		}
+		if (requestCode == PETICION_CAMARA) {
+			Bitmap photo = (Bitmap) data.getExtras().get("data");
+			ImageView imageView = (ImageView) findViewById(R.id.cv1ImageViewFoto);
+
+			imageView.setImageBitmap(photo);
+		}
+	}
+
+	public void setSpinner(int resStringId, int cv, int pos, int cvContador) {
+
+		String[] stringItemsSpinner = getResources()
+				.getStringArray(resStringId);
+
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, stringItemsSpinner);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		if (pos == 0) {
+			spinnerArray1[cv][cvContador] = (Spinner) cvLayoutModulo[cv][cvContador]
+					.findViewById(R.id.cv2SpinnerAnoInicio);
+			spinnerArray1[cv][cvContador].setAdapter(adapter);
+			spinnerArray1[cv][cvContador].setSelection(58);
+		} else {
+			spinnerArray2[cv][cvContador] = (Spinner) cvLayoutModulo[cv][cvContador]
+					.findViewById(R.id.cv2SpinnerAnoFin);
+			spinnerArray2[cv][cvContador].setAdapter(adapter);
+			spinnerArray2[cv][cvContador].setSelection(68);
+		}
+	}
+
+	public void listenSpinner(int cv, int pos, int cvContador) {
+		if (pos == 0) {
+			spinnerListener1[cv][cvContador] = new MyOnItemSelectedListener();
+			spinnerArray1[cv][cvContador]
+					.setOnItemSelectedListener(spinnerListener1[cv][cvContador]);
+			spinnerItemSeleccionado1[cv][cvContador] = spinnerListener1[cv][cvContador].getSeleccion();
+		} else {
+			spinnerListener2[cv][cvContador] = new MyOnItemSelectedListener();
+			spinnerArray2[cv][cvContador]
+					.setOnItemSelectedListener(spinnerListener1[cv][cvContador]);
+			spinnerItemSeleccionado2[cv][cvContador] = spinnerListener2[cv][cvContador].getSeleccion();
+
+		}
+	}
+
+	public void lanzarcv1TomarFoto(View view) {
+		Intent cameraIntent = new Intent(
+				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(cameraIntent, PETICION_CAMARA);
+	}
+
+	public void lanzarcv1CargarFoto(View view) {
+		Intent intent = new Intent(this,
+				es.cvmaker.upv.navegador.FileChooser.class);
+		intent.putExtra("tipoFichero", "Imagen");
+		startActivityForResult(intent, PETICION_CARGARFOTO);
+	}
+
+	
+
+	public void lanzarcv2Mas(View view) {
+		cv2Contador++;
+		if (cv2Contador < maxModulos) {
+
+			cvLayoutModulos[0] = (LinearLayout) findViewById(R.id.cv2LayoutModulos);
+			Button botonMas = (Button) findViewById(R.id.cv2BotonMas);
+			Button botonMenos = (Button) findViewById(R.id.cv2BotonMenos);
+			((ViewManager) botonMas.getParent()).removeView(botonMas); // Borro
+																		// el
+			((ViewManager) botonMenos.getParent()).removeView(botonMenos);// botón
+																			// mas
+																			// y
+																			// menos
+																			// del
+																			// layout
+			cvLayoutModulo[0][cv2Contador] = this.getLayoutInflater().inflate(
+					R.layout.actividad_cv2_datosacademicos_modulo, null, true); // Añado
+																				// LayoutMódulo
+																				// en
+																				// dos
+																				// pasos
+																				// para
+			cvLayoutModulos[0].addView(cvLayoutModulo[0][cv2Contador]); // guardarme
+																		// en un
+																		// view
+																		// el
+																		// nuevo
+																		// modulo
+			cvLayoutModulos[0].addView(getLayoutInflater().inflate(
+					R.layout.actividad_cv2_datosacademicos_mas_menos, null)); // Añado
+																				// el
+																				// Layout
+																				// BotonMás
+			Button botonMenos2 = (Button) findViewById(R.id.cv2BotonMenos);
+			botonMenos2.setVisibility(ImageButton.VISIBLE);// Boton menos
+															// visible
+			// Preparo los nuevos Spinners
+			setSpinner(R.array.ano, 0, 0, cv2Contador);
+			listenSpinner(0, 0, cv2Contador);
+			setSpinner(R.array.ano, 0, 1, cv2Contador);
+			listenSpinner(0, 1, cv2Contador);
+			// Defino los nuevo sEditText
+			cv2EditEstudios[cv2Contador]=(EditText) cvLayoutModulo[0][cv2Contador].findViewById(R.id.cv2EditEstudios);
+			cv2EditCentro[cv2Contador]=(EditText) cvLayoutModulo[0][cv2Contador].findViewById(R.id.cv2EditLocalidad);
+			cv2EditLocalidad[cv2Contador]=(EditText) cvLayoutModulo[0][cv2Contador].findViewById(R.id.cv2EditLocalidad);
+
+			if (cv2Contador == maxModulos) {
+				botonMas.setEnabled(false);
+			}
+		}
+	}
+
+	public void lanzarcv2Menos(View view) {
+		if (cv2Contador > 0) {
+			cv2Contador--;
+			((ViewManager) cvLayoutModulo[0][cv2Contador + 1].getParent())
+					.removeView(cvLayoutModulo[0][cv2Contador + 1]); // Borro el
+																		// modulo
+																		// anterior
+		}
+
+	}
+	
+	public void lanzarcv3Mas(View view) {
+		cv3Contador++;
+		if (cv3Contador < maxModulos) {
+
+			cvLayoutModulos[1] = (LinearLayout) findViewById(R.id.cv3LayoutModulos);
+			Button botonMas = (Button) findViewById(R.id.cv3BotonMas);
+			Button botonMenos = (Button) findViewById(R.id.cv3BotonMenos);
+			((ViewManager) botonMas.getParent()).removeView(botonMas); // Borro
+																		// el
+			((ViewManager) botonMenos.getParent()).removeView(botonMenos);// botón
+																			// mas
+																			// y
+																			// menos
+																			// del
+																			// layout
+			cvLayoutModulo[0][cv2Contador] = this.getLayoutInflater().inflate(
+					R.layout.actividad_cv2_datosacademicos_modulo, null, true); // Añado
+																				// LayoutMódulo
+																				// en
+																				// dos
+																				// pasos
+																				// para
+			cvLayoutModulos[0].addView(cvLayoutModulo[0][cv2Contador]); // guardarme
+																		// en un
+																		// view
+																		// el
+																		// nuevo
+																		// modulo
+			cvLayoutModulos[0].addView(getLayoutInflater().inflate(
+					R.layout.actividad_cv2_datosacademicos_mas_menos, null)); // Añado
+																				// el
+																				// Layout
+																				// BotonMás
+			Button botonMenos2 = (Button) findViewById(R.id.cv2BotonMenos);
+			botonMenos2.setVisibility(ImageButton.VISIBLE);// Boton menos
+															// visible
+			// Preparo los nuevos Spinners
+			setSpinner(R.array.ano, 0, 0, cv2Contador);
+			listenSpinner(0, 0, cv2Contador);
+			setSpinner(R.array.ano, 0, 1, cv2Contador);
+			listenSpinner(0, 1, cv2Contador);
+			// Defino los nuevo sEditText
+			cv2EditEstudios[cv2Contador]=(EditText) cvLayoutModulo[0][cv2Contador].findViewById(R.id.cv2EditEstudios);
+			cv2EditCentro[cv2Contador]=(EditText) cvLayoutModulo[0][cv2Contador].findViewById(R.id.cv2EditLocalidad);
+			cv2EditLocalidad[cv2Contador]=(EditText) cvLayoutModulo[0][cv2Contador].findViewById(R.id.cv2EditLocalidad);
+
+			if (cv2Contador == maxModulos) {
+				botonMas.setEnabled(false);
+			}
+		}
+	}
+
+	public void lanzarcv2Menos(View view) {
+		if (cv2Contador > 0) {
+			cv2Contador--;
+			((ViewManager) cvLayoutModulo[0][cv2Contador + 1].getParent())
+					.removeView(cvLayoutModulo[0][cv2Contador + 1]); // Borro el
+																		// modulo
+																		// anterior
+		}
+
+	}
+	
+	public void cvLanzarSiguiente(View view) {
+		tabHost.setCurrentTab(tabHost.getCurrentTab()+1);
+	}
+	
+	public void cvLanzarAnterior(View view) {
+		tabHost.setCurrentTab(tabHost.getCurrentTab()-1);
+	}
+
+
+}

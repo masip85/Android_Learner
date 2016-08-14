@@ -1,0 +1,11 @@
+
+
+<resources>
+
+    <!-- Variation on the Holo Light theme that styles the Action Bar -->
+    <style name="CVMakerTheme" >
+
+    </style>
+ 
+
+</resources>

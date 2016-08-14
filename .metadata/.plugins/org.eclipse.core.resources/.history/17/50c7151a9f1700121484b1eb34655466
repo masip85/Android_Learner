@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fi.harism.curl.ZoomableRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ZoomRelativeLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/fondo" >
+</fi.harism.curl.ZoomableRelativeLayout>
+
+    <!-- <fi.harism.curl.CurlView -->
+    <!-- android:id="@+id/curl" -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="fill_parent" /> -->

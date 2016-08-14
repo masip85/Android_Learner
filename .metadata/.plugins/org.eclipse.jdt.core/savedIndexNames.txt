@@ -1,0 +1,16 @@
+INDEX VERSION 1.126+C:\Android\eclipse\workspaceVicente2\.metadata\.plugins\org.eclipse.jdt.core
+2773708557.index
+1004248260.index
+651529697.index
+367343975.index
+2971112478.index
+1514314232.index
+2490340952.index
+754702086.index
+995181907.index
+3626002773.index
+2523349291.index
+3804133647.index
+715718219.index
+770293431.index
+1709835675.index

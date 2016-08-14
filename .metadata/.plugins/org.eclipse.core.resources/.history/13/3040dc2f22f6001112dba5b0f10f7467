@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cv3LayoutModulo"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/cv3TextViewTrabajo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/cv3Trabajo" />
+
+    <EditText
+        android:id="@+id/cv3EditTrabajo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cv3TextViewTrabajo" />
+
+    <TextView
+        android:id="@+id/cv3Periodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv3EditTrabajo"
+        android:text="@string/cv2Periodo" />
+
+    <Spinner
+        android:id="@+id/cv3SpinnerAnoInicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv3Periodo" />
+
+    <Spinner
+        android:id="@+id/cv3SpinnerAnoFin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv3Periodo"
+        android:layout_toRightOf="@+id/cv3SpinnerAnoInicio" />
+
+    <TextView
+        android:id="@+id/cv3TextViewCentro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv3SpinnerAnoFin"
+        android:text="@string/cv3Centro" />
+
+    <EditText
+        android:id="@+id/cv3EditCentro"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv3SpinnerAnoFin"
+        android:layout_toRightOf="@+id/cv3TextViewCentro" />
+    
+    <TextView
+        android:id="@+id/cv3TextViewDescripcion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv3EditCentro"
+        android:text="@string/cv3Descripcion" />
+
+    <EditText
+        android:id="@+id/cv3EditDescripcion"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv3EditCentro"
+        android:layout_toRightOf="@+id/cv3TextViewDescripcion" />
+</RelativeLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Servico de reproducción de música" />
+
+    <Button
+        android:id="@+id/boton_conectar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Conectar servicio" />
+
+    <Button
+        android:id="@+id/boton_desconectar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Desconectar Servicio" />
+    
+    <Button
+        android:id="@+id/boton_reproducir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reproducir" />
+
+    <Button
+        android:id="@+id/boton_avanzar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avanzar" />
+
+</LinearLayout>

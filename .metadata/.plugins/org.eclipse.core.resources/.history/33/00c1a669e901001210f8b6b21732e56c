@@ -1,0 +1,46 @@
+package es.cvmaker.upv.aplicacion;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.SherlockFragment;
+
+public class ActividadEditar3 extends SherlockFragment
+{
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState)
+	{
+		 // / / / / / / / / / / / / / / / / /CV3 / / / / / / / / / / / / / / /
+		 cvLayoutModulos[1] = (LinearLayout)
+		 findViewById(R.id.cv3LayoutModulos);
+		 cvLayoutModulo[1][cvContadorModulos[1]] = (View)
+		 findViewById(R.id.cv3LayoutModulo);
+		 setSpinner(R.array.ano, R.id.cv3SpinnerAnoInicio,
+		 R.id.cv3SpinnerAnoFin, 1, 0, cvContadorModulos[1]);
+		 setSpinner(R.array.ano, R.id.cv3SpinnerAnoInicio,
+		 R.id.cv3SpinnerAnoFin, 1, 1, cvContadorModulos[1]);
+		 listenSpinner(1, 1, 0);
+		 listenSpinner(1, 2, 0);
+		 // Defino los EditText
+		 cv3EditTrabajo[cvContadorModulos[1]] = (EditText)
+		 cvLayoutModulo[1][cvContadorModulos[1]]
+		 .findViewById(R.id.cv3EditTrabajo);
+		 cv3EditEmpresa[cvContadorModulos[1]] = (EditText)
+		 cvLayoutModulo[1][cvContadorModulos[1]]
+		 .findViewById(R.id.cv3EditEmpresa);
+		 cv3EditDescripcion[cvContadorModulos[1]] = (EditText)
+		 cvLayoutModulo[1][cvContadorModulos[1]]
+		 .findViewById(R.id.cv3EditDescripcion);
+		View view = inflater.inflate(R.layout.actividad_cv3_experiencialaboral, container, false);
+		
+		return view;
+	}
+	
+}

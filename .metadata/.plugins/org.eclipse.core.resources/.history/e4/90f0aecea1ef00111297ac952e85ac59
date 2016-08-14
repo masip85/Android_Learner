@@ -1,0 +1,214 @@
+package es.cvmaker.upv.aplicacion;
+
+import android.app.Activity;
+import android.app.TabActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TabHost;
+
+public class Actividad_Editar extends TabActivity {
+	String[] añoNacimiento, mesNacimiento, diaNacimiento, cv2AñoInicio,
+			cv2AñoFin, cv3AñoInicio, cv3AñoFin;
+
+	int ContadorSpinner = 1;
+
+	public String setSpinner(int resStringId, int viewSpinner,
+			int ContadorSpinner) {
+		final String[] strings = getResources().getStringArray(resStringId);
+
+		Spinner spinner = (Spinner) findViewById(viewSpinner);
+		ArrayAdapter<String> spinner_adaptador = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, strings);
+		spinner_adaptador
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(spinner_adaptador);
+
+		String aux = "";
+
+		// spinner.setOnItemSelectedListener(new
+		// AdapterView.OnItemSelectedListener() {
+		// public String string;
+		// public void onItemSelected(AdapterView<?> parent,
+		// android.view.View v, int position, long id) {
+		// string = strings[position];
+		// }
+		//
+		// public void getString() {
+		// return string;
+		// }
+		//
+		// public void onNothingSelected(AdapterView<?> parent) {
+		// }
+		// });
+
+		spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
+		aux = MyOnItemSelectedListener.this.getString();
+		return aux;
+	}
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.actividad_editar_scroll_tab);
+		TabHost tabHost = getTabHost();
+		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Titulo1", null)
+				.setContent(R.id.tab1Layout));
+		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Titulo2", null)
+				.setContent(R.id.tab2Layout));
+		tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("Titulo3", null)
+				.setContent(R.id.tab3Layout));
+
+		// Preparo los Spinners
+		añoNacimiento = getResources().getStringArray(R.array.ano);
+		Spinner spinner_cv1AñoNacimiento = (Spinner) findViewById(R.id.cv1SpinnerAnoNacimiento);
+		ArrayAdapter<String> spinner_adaptador11 = new ArrayAdapter<String>(
+				this, android.R.layout.simple_spinner_item, añoNacimiento);
+		spinner_adaptador11
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner_cv1AñoNacimiento.setAdapter(spinner_adaptador11);
+
+		mesNacimiento = getResources().getStringArray(R.array.mes);
+		Spinner spinner_cv1MesNacimiento = (Spinner) findViewById(R.id.cv1SpinnerMesNacimiento);
+		ArrayAdapter<String> spinner_adaptador12 = new ArrayAdapter<String>(
+				this, android.R.layout.simple_spinner_item, mesNacimiento);
+		spinner_adaptador12
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner_cv1MesNacimiento.setAdapter(spinner_adaptador13);
+
+		diaNacimiento = getResources().getStringArray(R.array.dia);
+		Spinner spinner_cv1DiaNacimiento = (Spinner) findViewById(R.id.cv1SpinnerDiaNacimiento);
+		ArrayAdapter<String> spinner_adaptador3 = new ArrayAdapter<String>(
+				this, android.R.layout.simple_spinner_item, diaNacimiento);
+		spinner_adaptador3
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner_cv1DiaNacimiento.setAdapter(spinner_adaptador14);
+
+		cv2AñoInicio = getResources().getStringArray(R.array.ano);
+		Spinner spinner_cv2AñoInicio = (Spinner) findViewById(R.id.cv2SpinnerAnoIinicio);
+		ArrayAdapter<String> spinner_adaptador4 = new ArrayAdapter<String>(
+				this, android.R.layout.simple_spinner_item, cv2AñoInicio);
+		spinner_adaptador4
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner_cv2AñoInicio.setAdapter(spinner_adaptador4);
+
+		cv2AñoFin = getResources().getStringArray(R.array.ano);
+		Spinner spinner_cv2AñoFin = (Spinner) findViewById(R.id.cv2SpinnerAnoFin);
+		ArrayAdapter<String> spinner_adaptador5 = new ArrayAdapter<String>(
+				this, android.R.layout.simple_spinner_item, cv2AñoFin);
+		spinner_adaptador5
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner_cv2AñoFin.setAdapter(spinner_adaptador5);
+
+		spinner_cv1AñoNacimiento
+				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+					public void onItemSelected(AdapterView<?> parent,
+							android.view.View v, int position, long id) {
+						// (datos[position]);
+					}
+
+					public void onNothingSelected(AdapterView<?> parent) {
+
+					}
+
+				});
+
+		// Recojo seleccion de los spinner
+		spinner_cv1MesNacimiento
+				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+					public void onItemSelected(AdapterView<?> parent,
+							android.view.View v, int position, long id) {
+						// (datos[position]);
+					}
+
+					public void onNothingSelected(AdapterView<?> parent) {
+					}
+				});
+		spinner_cv1DiaNacimiento
+				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+					public void onItemSelected(AdapterView<?> parent,
+							android.view.View v, int position, long id) {
+						// (datos[position]);
+					}
+
+					public void onNothingSelected(AdapterView<?> parent) {
+					}
+
+				});
+		spinner_cv1AñoNacimiento
+				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+					public void onItemSelected(AdapterView<?> parent,
+							android.view.View v, int position, long id) {
+						// (datos[position]);
+					}
+
+					public void onNothingSelected(AdapterView<?> parent) {
+					}
+
+				});
+		spinner_cv2AñoInicio
+				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+					public void onItemSelected(AdapterView<?> parent,
+							android.view.View v, int position, long id) {
+						// (datos[position]);
+					}
+
+					public void onNothingSelected(AdapterView<?> parent) {
+					}
+
+				});
+		spinner_cv2AñoFin
+				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+					public void onItemSelected(AdapterView<?> parent,
+							android.view.View v, int position, long id) {
+						// (datos[position]);
+					}
+
+					public void onNothingSelected(AdapterView<?> parent) {
+					}
+
+				});
+
+	}
+
+	Activity actividad;
+
+	public void lanzarcv2Mas(View view) {
+
+		LinearLayout cv2LayoutModulos = (LinearLayout) findViewById(R.id.cv2LayoutModulos);
+		;
+		Button botonMas = (Button) findViewById(R.id.cv2BotonMas);
+
+		((ViewManager) botonMas.getParent()).removeView(botonMas); // Borro el
+																	// botón del
+																	// layout
+		View cv2LayoutModulo1 = getLayoutInflater().inflate(
+				R.layout.actividad_cv2_datosacademicos_modulo, null); // Añado
+																		// LayoutMódulo
+																		// en
+																		// dos
+																		// pasos
+																		// para
+		cv2LayoutModulos.addView(cv2LayoutModulo1); // guardarme en un view el
+													// nuevo módulo
+		cv2LayoutModulos.addView(getLayoutInflater().inflate(
+				R.layout.actividad_cv2_datosacademicos_mas, null)); // Añado
+																	// BotonMás
+
+		String[] cv2AñoInicio2 = getResources().getStringArray(R.array.ano);
+		Spinner spinner_cv2AñoInicio2 = (Spinner) cv2LayoutModulo1
+				.findViewById(R.id.cv2SpinnerAnoIinicio);
+		ArrayAdapter<String> spinner_adaptador5 = new ArrayAdapter<String>(
+				this, android.R.layout.simple_spinner_item, cv2AñoInicio2);
+		spinner_adaptador5
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner_cv2AñoInicio2.setAdapter(spinner_adaptador5);
+
+	}
+
+}

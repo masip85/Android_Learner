@@ -1,0 +1,121 @@
+package es.cvmaker.upv.aplicacion;
+
+import android.app.TabActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TabHost;
+
+public class Actividad_Editar extends TabActivity {
+	int cv2ContadorSpinner = 1;
+	String aux = "";
+	int maxEntradas = 25;
+	Spinner spinner;
+	String[] añoNacimiento, mesNacimiento, diaNacimiento, cv2AñoInicio,
+			cv2AñoFin, cv3AñoInicio, cv3AñoFin, cv5AñoInicio, cv5AñoFin,
+			cv6AñoInicio, cv6AñoFin;
+	Spinner spinnerArray;
+	MyOnItemSelectedListener spinnerListener[][][] = new MyOnItemSelectedListener[3][1][maxEntradas];
+	View cv2LayoutModulo[] = new View[maxEntradas];
+	public String spinnerItemSeleccionado[][][] = new String[3][1][maxEntradas];
+
+	public void setSpinner(int resStringId, int viewSpinnerId, int cv, int pos,
+			int cvContadorSpinner) {
+		
+		String[] stringItemsSpinner = getResources()
+				.getStringArray(resStringId);
+		
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+	            android.R.layout.simple_spinner_item, stringItemsSpinner);
+	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner = (Spinner) findViewById(viewSpinnerId);
+		
+		spinner.setAdapter(adapter);
+
+		
+	}
+
+	public void listenSpinner(int cv, int pos, int cvContadorSpinner) {
+		spinnerListener[cv][pos][cvContadorSpinner] = new MyOnItemSelectedListener();
+		spinnerArray
+				.setOnItemSelectedListener(spinnerListener[cv][pos][cvContadorSpinner]);
+		// String spinnerItemSeleccionado = spinnerListener.selected;
+		// return spinnerItemSeleccionado;
+	}
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.actividad_editar_scroll_tab);
+		TabHost tabHost = getTabHost();
+		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Titulo1", null)
+				.setContent(R.id.tab1Layout));
+		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Titulo2", null)
+				.setContent(R.id.tab2Layout));
+		tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("Titulo3", null)
+				.setContent(R.id.tab3Layout));
+
+//		// // Preparo los Spinners
+		setSpinner(R.array.ano, R.id.cv2SpinnerAnoFin, 1, 1, cv2ContadorSpinner);
+		setSpinner(R.array.ano, R.id.cv2SpinnerAnoInicio, 1, 1, cv2ContadorSpinner);
+//		listenSpinner(1, 1, 1);
+//		// setSpinner(R.array.ano, R.id.cv2SpinnerAnoFin, 0, 1, 0);
+//		// listenSpinner(0, 0, 0);
+		
+		
+
+	}
+
+	public void lanzarcv2Mas(View view) {
+		cv2ContadorSpinner++;
+
+		LinearLayout cv2LayoutModulos = (LinearLayout) findViewById(R.id.cv2LayoutModulos);
+		Button botonMas = (Button) findViewById(R.id.cv2BotonMas);
+		Button botonMenos = (Button) findViewById(R.id.cv2BotonMenos);
+		((ViewManager) botonMas.getParent()).removeView(botonMas); // Borro el
+		((ViewManager) botonMenos.getParent()).removeView(botonMenos);// botón
+																		// mas y
+																		// menos
+																		// del
+																		// layout
+		cv2LayoutModulo[cv2ContadorSpinner] = getLayoutInflater().inflate(
+				R.layout.actividad_cv2_datosacademicos_modulo, null); // Añado
+																		// LayoutMódulo
+																		// en
+																		// dos
+																		// pasos
+																		// para
+		cv2LayoutModulos.addView(cv2LayoutModulo[cv2ContadorSpinner]); // guardarme
+																		// en un
+																		// view
+																		// el
+																		// nuevo
+																		// módulo
+
+		cv2LayoutModulos.addView(getLayoutInflater().inflate(
+				R.layout.actividad_cv2_datosacademicos_mas_menos, null)); // Añado
+																			// el
+																			// Layout
+																			// BotonMás_menos
+		Button botonMenos2 = (Button) findViewById(R.id.cv2BotonMenos);
+		botonMenos2.setVisibility(ImageButton.VISIBLE);
+
+		int viewSpinnerId = cv2LayoutModulo[cv2ContadorSpinner].findViewById(
+				R.id.cv2SpinnerAnoInicio).getId();
+		setSpinner(R.array.ano, viewSpinnerId, 0, 0, cv2ContadorSpinner);
+		listenSpinner(0, 0, cv2ContadorSpinner);
+		// setSpinner(R.array.ano, R.id.cv2SpinnerAnoFin, 0, 1, 1);
+		// listenSpinner(0, 1, 1);
+
+		Log.i("holaaaaaa!!!!!",
+				spinnerListener[0][0][(cv2ContadorSpinner--)].seleccionado);
+
+	}
+
+}

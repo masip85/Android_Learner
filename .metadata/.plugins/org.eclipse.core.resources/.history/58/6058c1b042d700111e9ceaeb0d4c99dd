@@ -1,0 +1,54 @@
+package com.example.visorpdf;
+
+import android.app.Activity;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.os.Bundle;
+import android.widget.LinearLayout;
+
+import com.artifex.mupdf.MuPDFCore;
+import com.artifex.mupdf.MuPDFPageAdapter;
+import com.artifex.mupdf.ReaderView;
+
+public class VisorPDFActivity extends Activity
+{
+	MuPDFCore  core;
+	String     rutaPDF = "/mnt/sdcard/Download/Memoria.pdf";
+	ReaderView readerView;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.principal);
+
+		try {
+			core = new MuPDFCore(rutaPDF);
+			System.out.println("HA FUNCIONADO");
+		} catch (Exception e) {
+			System.out.println("ALGO HA FALLADO "+e);
+		}
+		visualizarPDF();	
+	}
+	
+	public void visualizarPDF(){
+		LinearLayout layout = (LinearLayout) this.findViewById(R.id.linearlayoutprincipal);
+		readerView = new ReaderView(this);
+		readerView.setAdapter(new MuPDFPageAdapter(this, core));
+		layout.addView(readerView);
+		setContentView(layout);
+		Canvas canvas=new Canvas();
+		 //Dibujo
+				 Paint pincel=new Paint();
+				 pincel.setColor(Color.BLUE);
+				 pincel.setStrokeWidth(8);
+				 pincel.setStyle(Style.STROKE);
+				 canvas.drawCircle(150, 150, 100, pincel);
+				 pincel.setColor(Color.argb(127,255,0,0));
+				 canvas.drawCircle(150, 150, 100, pincel);
+		readerView.draw(canvas);
+	}
+	
+}

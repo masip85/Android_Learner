@@ -1,0 +1,35 @@
+package es.cvmaker.upv.aplicacion;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.SherlockFragment;
+
+public class ActividadEditar4 extends SherlockFragment
+{
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState)
+	{ // / / / / / / / / / / / / / / / / /CV4 / / / / / / / / / / / / / / /
+		 cvLayoutModulos[2] = (LinearLayout)
+		 findViewById(R.id.cv4LayoutModulos);
+		 cvLayoutModulo[2][cvContadorModulos[2]] = (View)
+		 findViewById(R.id.cv4LayoutModulo);
+		 setSeekBar(0, cvContadorModulos[2], R.id.cv4SeekBarHablado,
+		 R.id.cv4TextViewSeekBarHablado);
+		 setSeekBar(1, cvContadorModulos[2], R.id.cv4SeekBarEscrito,
+		 R.id.cv4TextViewSeekBarEscrito);
+		 setSeekBar(2, cvContadorModulos[2], R.id.cv4SeekBarLectura,
+		 R.id.cv4TextViewSeekBarLectura);
+		 listenSeekBars(cvContadorModulos[2]);
+		View view = inflater.inflate(R.layout.actividad_cv4_idiomas, container, false);
+		
+		return view;
+	}
+	
+}

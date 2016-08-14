@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, NuevoPermiso!</string>
+    <string name="app_name">NuevoPermiso</string>
+    
+    <string name="etiqueta">Reproducción de videos bajo demanda</string>
+    <string name="descripcion">Permite a la aplicación reproducir videos de la empresa.</string>
+
+</resources>

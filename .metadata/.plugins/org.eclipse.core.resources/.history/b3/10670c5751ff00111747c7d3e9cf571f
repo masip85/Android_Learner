@@ -1,0 +1,20 @@
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="CVMaker" parent="android:Theme.Holo.Light">
+
+    <item name="android:editTextBackground">@drawable/edit_text_holo_light</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/btn_check_holo_light</item>
+
+    <item name="android:buttonStyle">@style/ButtonCVMaker</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonCVMaker</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerCVMaker</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarCVMaker</item>
+
+  </style>
+
+</resources>

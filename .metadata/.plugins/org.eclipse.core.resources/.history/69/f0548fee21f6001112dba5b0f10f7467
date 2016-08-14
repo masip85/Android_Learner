@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab6Layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:tag="3" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/cv6BotonAnterior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="cvLanzarAnterior"
+            android:text="@string/cvAnterior" />
+
+        <TextView
+            android:id="@+id/cv6titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cv6Titulo"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/cv6BotonSiguiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="cvLanzarSiguiente"
+            android:text="@string/cvSiguiente" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/cv6LayoutModulos"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <include layout="@layout/actividad_cv6_experiencialaboral_modulo" />
+            <include layout="@layout/actividad_cv6_experiencialaboral_mas_menos" />
+            
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

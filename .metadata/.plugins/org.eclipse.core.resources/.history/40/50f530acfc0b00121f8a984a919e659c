@@ -1,0 +1,82 @@
+package es.cvmaker.upv.aplicacion;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.SherlockFragment;
+
+public class ActividadEditarExtra extends SherlockFragment {
+	Integer posTabActual;
+	Integer contadorGenExtra2;
+	int tagTabCreado2;
+
+	String TAG = "Fragment2";
+	boolean inflado = false;
+	View view;
+
+	int id;
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+
+		Bundle b = getArguments();
+
+		Toast.makeText(getActivity(), "Soy: " + b.getInt("posTabActual"),
+				Toast.LENGTH_SHORT).show();
+		posTabActual = b.getInt("posTabActual");
+		// Vuelvo a contar que ya tengo uno extra y esa es mi primera referencia
+		contadorGenExtra2 = posTabActual - 6;
+		((Actividad_Editar) getActivity()).contadorGenExtra2 = contadorGenExtra2;
+		tagTabCreado2 = posTabActual - 2;
+
+		if (((Actividad_Editar) getActivity()).cvInicializado[posTabActual] == true) {
+			View view = inflater.inflate(R.layout.actividad_cv6_generico,
+					container, false);
+			((Actividad_Editar) getActivity()).FragmentView[posTabActual] = view;
+			((Actividad_Editar) getActivity()).inflarCVExtra(contadorGenExtra2);
+			view = ((Actividad_Editar) getActivity()).FragmentView[posTabActual];
+			inflado = true;
+			return view;
+		} else {
+			View view = inflater.inflate(R.layout.actividad_cv6_generico,
+					container, false);
+			Log.i(
+					"inicializo contador generico extra "," "+posTabActual);
+			
+					
+			// ((Actividad_Editar) getActivity()).FragmentView[posTabActual] =
+			// view;
+			((Actividad_Editar) getActivity()).FragmentView[posTabActual] = view;
+			((Actividad_Editar) getActivity()).inicializarCVExtra(
+					contadorGenExtra2, tagTabCreado2);
+			((Actividad_Editar) getActivity()).cvInicializado[posTabActual] = true;
+			return view;
+		}
+	}
+
+	@Override
+	public void onDestroyView() {
+		((Actividad_Editar) getActivity()).guardarCVExtra(contadorGenExtra2);
+		inflado = false;
+		super.onDestroyView();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (inflado == true) {
+			((Actividad_Editar) getActivity())
+					.reconstruirCVExtra(contadorGenExtra2);
+		}
+
+	}
+
+}

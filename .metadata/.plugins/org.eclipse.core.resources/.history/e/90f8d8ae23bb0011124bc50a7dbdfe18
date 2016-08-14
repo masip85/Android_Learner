@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tabCalculadora"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
+        
+       
+       <TextView
+           style="@style/TextoTitulo.LargePort"	
+           android:id="@+id/textView11"       
+           android:text="@string/actividadCalculadora"
+           android:layout_alignParentTop="true"/>
+        
+
+        <TextView
+            android:gravity="center"
+            android:textSize="30dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFFFF"          
+           
+            android:id="@+id/editCalculadora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView11"
+            android:layout_alignParentLeft="true"  >               
+        </TextView>
+
+        <TableLayout
+            android:id="@+id/tableLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editCalculadora" >
+
+            <TableRow>
+
+                <!-- FILA 1 -->
+
+                <Button
+                    android:id="@+id/btn1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:height="50dp"
+                    android:onClick="calcular"
+                    android:tag="1"
+                    android:text="@string/btn1"
+                    android:width="50dp" />
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:height="50dp"
+                    android:onClick="calcular"
+                    android:tag="2"
+                    android:text="@string/btn2"
+                    android:width="50dp" />
+
+                <Button
+                    android:id="@+id/btn3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:height="50dp"
+                    android:onClick="calcular"
+                    android:tag="3"
+                    android:text="@string/btn3"
+                    android:width="50dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <!-- FILA 2 -->
+
+                <Button
+                    android:id="@+id/btn4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:height="50dp"
+                    android:onClick="calcular"
+                    android:tag="4"
+                    android:text="@string/btn4"
+                    android:width="50dp" />
+
+                <Button
+                    android:id="@+id/btn5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:height="50dp"
+                    android:onClick="calcular"
+                    android:tag="5"
+                    android:text="@string/btn5"
+                    android:width="50dp" />
+
+                <Button
+                    android:id="@+id/btn6"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:height="50dp"
+                    android:onClick="calcular"
+                    android:tag="6"
+                    android:text="@string/btn6"
+                    android:width="50dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <!-- FILA 3 -->
+
+                <Button
+                    android:id="@+id/btn7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:height="50dp"
+                    android:onClick="calcular"
+                    android:tag="7"
+                    android:text="@string/btn7"
+                    android:width="50dp" />
+
+                <Button
+                    android:id="@+id/btn8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:height="50dp"
+                    android:onClick="calcular"
+                    android:tag="8"
+                    android:text="@string/btn8"
+                    android:width="50dp" />
+
+                <Button
+                    android:id="@+id/btn9"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:height="50dp"
+                    android:onClick="calcular"
+                    android:tag="9"
+                    android:text="@string/btn9"
+                    android:width="50dp" />
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/btn0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/tableLayout1"
+            android:layout_below="@+id/tableLayout1"
+            android:height="45dp"
+            android:tag="0"
+            android:text="@string/btn0"
+            android:width="50dp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tableLayout1"
+            android:layout_toRightOf="@+id/tableLayout1"
+            android:height="65dp"
+            android:onClick="calcular"
+            android:tag="M"
+            android:text="@string/btnM"
+            android:width="50dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button1"
+            android:layout_below="@+id/button1"
+            android:height="65dp"
+            android:onClick="calcular"
+            android:tag="I"
+            android:text="@string/btnI"
+            android:width="50dp" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button2"
+            android:layout_below="@+id/button2"
+            android:height="65dp"
+            android:tag="C"
+            android:onClick="calcular"
+            android:text="@string/btnC"
+            android:width="50dp" />
+    </RelativeLayout>

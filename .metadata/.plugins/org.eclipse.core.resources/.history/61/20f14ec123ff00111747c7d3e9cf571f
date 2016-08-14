@@ -1,0 +1,15 @@
+<resources>
+
+  
+        <style>
+            <item>name="AppTheme"</item>
+            <item>parent="android:Theme.Light"</item>
+            <item></item>
+            <item></item>
+            <item></item>
+            <item></item>
+            <item></item>
+        </style>
+    
+
+</resources>

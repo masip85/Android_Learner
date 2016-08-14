@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, NuevoPermisoActivity!</string>
+    <string name="app_name">Nuevo Permiso</string>    
+	<string name="descripcion">permite a la aplicacion reproducir videos de la empresa PayPerView sin tu intervencion</string>
+</resources>

@@ -1,0 +1,135 @@
+package es.cvmaker.upv.aplicacion;
+
+import es.cvmaker.upv.R;
+
+import android.R;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
+public class Actividad_Principal extends SherlockActivity {
+	private boolean modoEdicion = false;
+	ArrayAdapter<String> navigationAdapter;
+	private TextView menuItemSelected;
+    private String[] menuItems;
+
+	// private Button botonNuevo,botonEditar,botonAbrir,botonEjemploCV;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.actividad_principal);
+		// Intent intent=new Intent(this,Actividad_Editar.class);
+		// startActivity(intent);
+		
+		ActionBar ab = getSupportActionBar();
+		
+//		ab.setDisplayShowTitleEnabled(false);
+//		ab.setDisplayUseLogoEnabled(true);
+//		ab.setDisplayHomeAsUpEnabled(false);
+		// Con esto preparo el listMenu
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+				getBaseContext(), R.array.menuItems,
+		    R.layout.sherlock_spinner_item);
+		adapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+		ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		
+		ActionBar.OnNavigationListener navigationListener = new OnNavigationListener() {
+            public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+                Toast.makeText(getBaseContext(), "waaaa" , Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        };
+        getSupportActionBar().setListNavigationCallbacks(adapter, navigationListener);
+        adapter.setDropDownViewResource(es.cvmaker.upv.R.layout.sherlock_spinner_dropdown_item);
+
+		
+		 
+
+
+//		// Always ignore the savedInstanceState otherwise
+//		// an old fragment may be visible instead of the new ones.
+//		super.onCreate(null);
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.overflow:
+
+			return true;
+		}
+		return false;
+	}
+
+	// El set Bar se Añade con un inflate aqui
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getSupportMenuInflater();
+		inflater.inflate(R.menu.activity_main, menu);
+		return true;
+	}
+
+	public class ForcedOverflowItem extends SherlockActivity {
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Used to put dark icons on light action bar
+			// boolean isLight = SampleList.THEME ==
+			// R.style.Theme_Sherlock_Light;
+
+			menu.add("Save").setIcon(R.drawable.ic_action_search)
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+			menu.add("Search").setIcon(R.drawable.ic_action_search)
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+			menu.add("Refresh").setIcon(R.drawable.ic_action_search)
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+			menu.add("Save").setIcon(R.drawable.ic_action_search)
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+			menu.add("Search").setIcon(R.drawable.ic_action_search)
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+			menu.add("Refresh").setIcon(R.drawable.ic_action_search)
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+			return true;
+		}
+	}
+
+	public void lanzarAbrir(View view) {
+		modoEdicion = false;
+		// startActivity(new Intent(this,Actividad_Lista.class));
+
+	}
+
+	public void lanzarNuevo(View view) {
+		modoEdicion = false;
+		startActivity(new Intent(this, Actividad_Editar.class));
+	}
+
+	public void lanzarEditar(View view) {
+		modoEdicion = true;
+		// startActivity(new Intent(this,Actividad_Lista.class));
+	}
+
+	public boolean getModo() {
+		return modoEdicion;
+	}
+
+	// @Override
+	// public boolean onCreateOptionsMenu(Menu menu) {
+	// getMenuInflater().inflate(R.menu.activity_main, menu);
+	// return true;
+	// }
+}

@@ -1,0 +1,97 @@
+package es.cvmaker.upv.dropbox;
+
+import java.io.File;
+import java.io.FileInputStream;
+
+import junit.framework.Test;
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
+
+import com.artifex.mupdf.R;
+import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.android.AndroidAuthSession;
+import com.dropbox.client2.session.AppKeyPair;
+import com.dropbox.client2.session.Session.AccessType;
+
+public class Actividad_dropbox extends Activity {
+
+	final static private String APP_KEY         = "zeqtroq0nfeduqk";
+	final static private String APP_SECRET      = "1ksumbbd9shxx1w";
+	final static private AccessType ACCESS_TYPE = AccessType.DROPBOX;
+	// final static private AccessType ACCESS_TYPE = AccessType.APP_FOLDER;
+
+	private DropboxAPI<AndroidAuthSession> dropbox;
+	private int estado = 0;
+	private static final int ID_NOTIFICACION = 1;
+	
+//	private String rutaFichero = "";
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
+		AndroidAuthSession session = new AndroidAuthSession(appKeys,
+				ACCESS_TYPE);
+		dropbox = new DropboxAPI<AndroidAuthSession>(session);
+		dropbox.getSession().startAuthentication(Actividad_dropbox.this);
+//		rutaFichero = getIntent().getExtras().getString("pathFile");
+		estado = 1;
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		Toast.makeText(this, "HOLA" + estado, Toast.LENGTH_SHORT).show();
+		if (dropbox.getSession().authenticationSuccessful()) {
+			Toast.makeText(this, "Subiendo...", Toast.LENGTH_SHORT).show();
+			ThreadSubirFichero subirFichero = new ThreadSubirFichero(dropbox, getIntent().getExtras().getString("pathFile"));
+			subirFichero.start();
+			finish();
+		}
+		if(estado == 2) finish();
+		estado++;
+	}
+	
+//	Thread subirFichero = new Thread() {
+//		public void run() {
+//			FileInputStream inputStream = null;
+//			try {
+//				dropbox.getSession().finishAuthentication();
+//
+//				String aux[] = rutaFichero.split("/");
+//				String nombreFichero = aux[aux.length - 1];
+//
+//				File file = new File(rutaFichero);
+//				inputStream = new FileInputStream(file);
+//				dropbox.putFile("/CVMaker/" + nombreFichero, inputStream,
+//						file.length(), null, null);
+//				dropbox.getSession().unlink();
+//			} catch (Exception e) {
+//				dropbox.getSession().unlink();
+//			}
+//			
+//			NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//			Intent launchIntent = new Intent(getApplicationContext(),Test.class);
+//			PendingIntent contentIntent = PendingIntent.getActivity(
+//					getApplicationContext(), 0, launchIntent, 0);
+//
+//			Notification notif;
+//				notif = new Notification(R.drawable.ic_launcher,
+//						"Fichero subido", System.currentTimeMillis());
+//				notif.setLatestEventInfo(getApplicationContext(),
+//						"Fichero subido correctamente","", contentIntent);
+//			notif.defaults |= Notification.DEFAULT_VIBRATE;
+//			notif.flags = Notification.FLAG_AUTO_CANCEL;
+//			nm.notify(ID_NOTIFICACION, notif);	
+//		}
+//	};
+}

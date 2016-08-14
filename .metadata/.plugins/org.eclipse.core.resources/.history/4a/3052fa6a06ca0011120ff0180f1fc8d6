@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.gesture.GestureOverlayView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gestures"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fadeOffset="800"
+    android:gestureStrokeType="multiple" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tabAsteroides"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/degradado"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="30dip" >
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextoAsteroides"
+            android:layout_marginBottom="20dip"
+            android:gravity="center"
+            android:text="@string/tituloAplicacion"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/btnJugar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="mostrarPreferencias"
+            android:text="@string/Arrancar" />
+        <!-- android:background="@drawable/degradado" -->
+
+        <Button
+            android:id="@+id/btnConfigurar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="lanzarConfiguracion"
+            android:text="@string/Configurar" />
+
+        <Button
+            android:id="@+id/btnAcercaDe"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Acercade" />
+
+        <Button
+            android:id="@+id/btnPuntuaciones"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="lanzarPuntuaciones"
+            android:text="@string/Puntuaciones" />
+    </LinearLayout>
+    </android.gesture.GestureOverlayView><AbsoluteLayout>

@@ -1,0 +1,29 @@
+package es.cvmaker.upv.aplicacion;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.SherlockFragment;
+
+public class ActividadEditar5 extends SherlockFragment
+{
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState)
+	{
+		// / / / / / / / / / / / / / / / / /CV5 / / / / / / / / / / / / / / /
+				 cv5CheckBox_1 = (CheckBox) findViewById(R.id.cv5CheckBox1);
+				 cv5CheckBox_2 = (CheckBox) findViewById(R.id.cv5CheckBox2);
+				 cv5CheckBox_3 = (CheckBox) findViewById(R.id.cv5CheckBox3);
+				 cv5CheckBox_4 = (CheckBox) findViewById(R.id.cv5CheckBox4);
+		View view = inflater.inflate(R.layout.actividad_cv5_general, container, false);
+		
+		return view;
+	}
+	
+}

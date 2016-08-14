@@ -1,0 +1,18 @@
+package com.example.ComunicacionActividades;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class Verificar extends Activity {
+	
+	private TextView nombreRecibido;
+	
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.validar);
+		
+		Bundle extras=getIntent().getExtras();
+		String s=extras.getString("campoEdit");
+	}
+
+}

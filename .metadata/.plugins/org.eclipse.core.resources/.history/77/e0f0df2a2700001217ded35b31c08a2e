@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <menu>
+        <item
+            android:id="@+id/favoritos"
+            android:icon="@drawable/ic_action_search"
+            android:showAsAction="always"
+            android:title="yo"/>
+
+        <item
+            android:id="@+id/configuracion"
+            android:icon="@drawable/ic_action_search"
+            android:showAsAction="always"
+            android:title="ya"/>
+    </menu>
+
+    <TextView
+        android:id="@+id/TextViewtitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="83dp"
+        android:text="@string/app_name"
+        tools:context=".MainActivity" />
+
+    <Button
+        android:id="@+id/botonNuevo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextViewtitulo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:onClick="lanzarNuevo"
+        android:text="@string/Nuevo" />
+
+    <Button
+        android:id="@+id/botonAbrir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botonNuevo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:onClick="lanzarAbrir"
+        android:text="@string/Abrir" />
+
+    <Button
+        android:id="@+id/botonEditar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botonAbrir"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:onClick="lanzarEditar"
+        android:text="@string/Editar" />
+
+    <Button
+        android:id="@+id/botonEjemploCV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botonEditar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:onClick="lanzarEjemploCV"
+        android:text="@string/EjemploCV" />
+
+</RelativeLayout>

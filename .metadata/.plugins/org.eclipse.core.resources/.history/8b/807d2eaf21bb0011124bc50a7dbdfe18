@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    android:id="@+id/tabAsteroides"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="30dip" >
+
+    <TextView
+        style="@style/TextoAsteroides.LargeLand"
+        android:id="@+id/textView1"
+       
+        android:text="@string/aplicacionAsteroides" />
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="94dp"
+        android:gravity="center"
+        android:stretchColumns="*" >
+
+        <TableRow>
+           <Button
+                android:id="@+id/button1"
+                style="@style/BotonesAsteroides"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Arrancar" />
+            <Button
+                android:id="@+id/button2"
+                style="@style/BotonesAsteroides"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Configurar" />
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:id="@+id/button3"
+                style="@style/BotonesAsteroides"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Acercade" />
+            <Button
+                android:id="@+id/button4"
+                style="@style/BotonesAsteroides"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Salir" />
+        </TableRow>  
+             
+    </TableLayout>
+    
+</LinearLayout>

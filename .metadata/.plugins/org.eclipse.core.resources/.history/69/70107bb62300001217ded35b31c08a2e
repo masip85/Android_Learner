@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+ >
+ 
+    <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/favoritos"
+        android:icon="@drawable/ic_menu_star"
+        android:showAsAction="always"
+        android:title="@string/favoritos"/>
+
+    <item
+        android:id="@+id/configuracion"
+        android:icon="@drawable/ic_menu_preferences"
+        android:showAsAction="always"
+        android:title="@string/configuracion"/>
+
+</menu>
+
+    <TextView
+        android:id="@+id/TextViewtitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="83dp"
+        android:text="@string/app_name"
+        tools:context=".MainActivity" />
+
+    <Button
+        android:id="@+id/botonNuevo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextViewtitulo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/Nuevo"
+        android:onClick="lanzarNuevo" />
+
+    <Button
+        android:id="@+id/botonAbrir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botonNuevo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/Abrir"
+        android:onClick="lanzarAbrir" />
+
+    <Button
+        android:id="@+id/botonEditar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botonAbrir"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/Editar"
+        android:onClick="lanzarEditar" />
+
+    <Button
+        android:id="@+id/botonEjemploCV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botonEditar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/EjemploCV"
+        android:onClick="lanzarEjemploCV" />
+
+</RelativeLayout>

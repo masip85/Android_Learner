@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;desplazamiento_derecha.xml&apos; to &apos;anim&apos;&#x0D;&#x0A;- Original project: &apos;AnimacionTween&apos;&#x0D;&#x0A;- Destination element: &apos;anim&apos;&#x0D;&#x0A;- Original element: &apos;desplazamiento_derecha.xml&apos;" description="Copy file" element1="res/anim/desplazamiento_derecha.xml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1341511118142" target="/Asteroides/res/anim" units="0" version="1.0"/>
+</session>

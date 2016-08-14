@@ -1,0 +1,78 @@
+package org.example.u2;
+
+import android.app.TabActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TabHost;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class BeltranJL_U2Activity extends TabActivity {
+    
+	private EditText cantidadEuros;
+	private TextView resulPesetas;
+	private Integer  contador = 0; 
+	private TextView calculadora;
+	private int flag = 0;
+	
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        
+        TabHost tabHost = getTabHost();                
+        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator(this.getString(R.string.actividadAsteroides), null).setContent(R.id.tabAsteroides));
+        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator(this.getString(R.string.conversor), null).setContent(R.id.tabConversor));
+        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator(this.getString(R.string.calculadora), null).setContent(R.id.tabCalculadora));
+        
+        int iH = 70;
+
+        for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
+                    tabHost.getTabWidget().getChildAt(i).getLayoutParams().height = iH;
+                }   
+        
+        
+        cantidadEuros = (EditText) findViewById(R.id.textCantidadEuros);
+        resulPesetas  = (TextView) findViewById(R.id.textResultadoConversion);
+        calculadora   = (TextView) findViewById(R.id.editCalculadora);
+    }
+    
+    public void euro2peseta(View view) {    	
+    	try {
+    		Float resul = (float) (Float.parseFloat(cantidadEuros.getText().toString())*166.386);
+    		resulPesetas.setText(resul.toString()+" pesetas");
+    	} catch(Exception e) {
+    		Toast.makeText(this, "Introduce una cantidad", Toast.LENGTH_SHORT).show();
+    	}    	
+    }
+    
+    public void calcular(View view) {
+    	// No uso estructura switch porque no permite switch(String) antes de la version 1.7
+    	
+    	String teclaPulsada = view.getTag().toString();
+    	
+    	if(teclaPulsada.equals("C")) { // Limpiar
+    		contador = 0;
+    		calculadora.setText("0"); 
+    	
+    	} else if (teclaPulsada.equals("I")) { // Igual
+    			contador += Integer.parseInt(calculadora.getText().toString());
+    			calculadora.setText(contador.toString());
+    			contador = 0;
+    	} else if (teclaPulsada.equals("M")) { // Sumar
+    		contador += (int) Float.parseFloat(calculadora.getText().toString());
+    		flag = 1;
+    	} else { // 0-9
+    		if(flag == 0) { // Concatenar en pantalla
+    			Integer num = Integer.parseInt(calculadora.getText().toString() + teclaPulsada);
+    			calculadora.setText(num.toString());
+    		
+    		} else { 
+    			calculadora.setText(teclaPulsada);
+    			flag=0;
+    		}
+    	}
+    
+    }
+}

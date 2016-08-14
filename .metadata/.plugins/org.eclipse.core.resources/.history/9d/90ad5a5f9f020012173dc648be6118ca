@@ -1,0 +1,61 @@
+package es.cvmaker.upv.aplicacion;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.SherlockFragment;
+
+public class ActividadEditar2 extends SherlockFragment
+{
+	
+	// / / / / / / / / / / / / / / / / /CV2 / / / / / / / / / / / / / / / /
+		EditText cv2EditLocalidad[] = new EditText[getActivity().maxModulos];
+		EditText cv2EditCentro[] = new EditText[maxModulos];
+		EditText cv2EditEstudios[] = new EditText[maxModulos];
+		
+		// array spinners año inicio de todos los tabs y modulos
+		Spinner spinnerArray1[][] = new Spinner[2][maxModulos];
+		Spinner spinnerArray2[][] = new Spinner[2][maxModulos];
+		MyOnItemSelectedListener spinnerListener1[][] = new MyOnItemSelectedListener[2][maxModulos];
+		MyOnItemSelectedListener spinnerListener2[][] = new MyOnItemSelectedListener[2][maxModulos];
+		
+		String spinnerItemSeleccionado1[][] = new String[2][maxModulos];
+		String spinnerItemSeleccionado2[][] = new String[2][maxModulos];
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState)
+	{
+		View view = inflater.inflate(R.layout.actividad_cv2_datosacademicos, container, false);
+		
+		return view;
+		
+//		 // / / / / / / / / / / / / / / / / /CV2 / / / / / / / / / / / / / / /
+//		 cvLayoutModulos[0] = (LinearLayout)
+//				 getActivity.this.findViewById(R.id.cv2LayoutModulos);
+//		 cvLayoutModulo[0][cvContadorModulos[0]] = (View)
+//		 findViewById(R.id.cv2LayoutModulo);
+//		 setSpinner(R.array.ano, R.id.cv2SpinnerAnoInicio,
+//		 R.id.cv2SpinnerAnoInicio, 0, 0, cvContadorModulos[0]);
+//		 setSpinner(R.array.ano, R.id.cv2SpinnerAnoInicio,
+//		 R.id.cv2SpinnerAnoFin, 0, 1, cvContadorModulos[0]);
+//		 listenSpinner(0, 1, 0);
+//		 listenSpinner(0, 2, 0);
+//		 // Defino los EditText
+//		 cv2EditEstudios[cvContadorModulos[0]] = (EditText)
+//		 cvLayoutModulo[0][cvContadorModulos[0]]
+//		 .findViewById(R.id.cv2EditEstudios);
+//		 cv2EditCentro[cvContadorModulos[0]] = (EditText)
+//		 cvLayoutModulo[0][cvContadorModulos[0]]
+//		 .findViewById(R.id.cv2EditCentro);
+//		 cv2EditLocalidad[cvContadorModulos[0]] = (EditText)
+//		 cvLayoutModulo[0][cvContadorModulos[0]]
+//		 .findViewById(R.id.cv2EditLocalidad);
+	}
+	
+}

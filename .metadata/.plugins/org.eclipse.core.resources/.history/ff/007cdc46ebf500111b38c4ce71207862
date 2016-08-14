@@ -1,0 +1,57 @@
+<resources>
+
+    <string name="app_name">CVMaker</string>
+    <string name="Abrir">Abrir</string>
+    <string name="Nuevo">Nuevo</string>
+    <string name="Editar">Editar</string>
+    <string name="EjemploCV">Ejemplo CV</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Actividad_principal</string>
+    <string name="cvBotonMas">Más</string>
+    <string name="cvBotonMenos">Menos</string>
+    
+    
+    <string name="cvAnterior">-Anterior</string>
+    <string name="cvSiguiente">Siguiente-</string>
+    
+    
+    <string name="cv1Titulo">Información personal</string>
+    <string name="cv1FechaNacimiento">Fecha de nacimiento: </string>
+    <string name="cv1Email">email: </string>
+    <string name="cv1Nombre">Nombre: </string>
+    <string name="cv1Telefono">Nº Teléfono: </string>
+    <string name="cv1Localidad">Localidad: </string>
+    
+    <string name="cv2Titulo">Datos académicos</string>
+    <string name="cv2Periodo">Año de inicio - Año de finalización  </string>
+    <string name="cv2Centro">Centro: </string>
+    <string name="cv2Estudios">Estudios: </string>
+    
+    <string name="cv3Titulo">Experiencia laboral</string>
+    <string name="cv3Centro">Centro: </string>
+    <string name="cv3Trabajo">Trabajo: </string>
+    <string name="cv3Descripcion">Descripcion: </string>
+    
+    <string name="cv4Titulo">Idiomas </string>
+    <string name="cv4Idioma">Idioma:  </string>
+    <string name="cv4NivelHablado">Nivel hablado:  </string>
+    <string name="cv4NivelEscrito">Nivel escrito:  </string>
+    <string name="cv4NivelOral">Nivel oral:  </string>
+    
+    <string name="cv5Titulo">General </string>
+    <string name="cv5_1">Acostumbrado trabajo en equipo </string> 
+    <string name="cv5_2">Disponibilidad para desplazarse </string>
+    <string name="cv5_3">Disponibilidad de coche propio </string>
+    <string name="cv5_4">Disponibilidad para viajar </string>
+    
+     <string name="cv6Titulo">Genérico </string>
+    <string name="cv6_1">Título </string> 
+    <string name="cv6_2">Título Campo</string>
+    <string name="cv6_3">Campo</string>
+    
+        
+    
+    
+
+</resources>

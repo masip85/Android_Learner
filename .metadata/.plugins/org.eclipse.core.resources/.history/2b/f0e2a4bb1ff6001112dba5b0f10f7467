@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/cv5TextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/cv5_1" />
+
+    <CheckBox
+        android:id="@+id/cv5CheckBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/cv5TextView1"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/cv5TextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv5CheckBox1"
+        android:text="@string/cv5_2" />
+
+    <CheckBox
+        android:id="@+id/cv5CheckBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv5CheckBox1"
+        android:layout_toRightOf="@+id/cv5TextView2"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/cv5TextView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/cv5CheckBox2"
+        android:text="@string/cv5_3" />
+
+    <CheckBox
+        android:id="@+id/cv5CheckBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/cv5TextView1"
+        android:text="" />
+
+</RelativeLayout>

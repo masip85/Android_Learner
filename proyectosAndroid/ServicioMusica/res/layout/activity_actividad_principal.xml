@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Servicio de reproduccion de musica" />
+
+    <Button
+        android:id="@+id/boton_arrancar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Arrancar servicio" />
+
+    <Button
+        android:id="@+id/boton_detener"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detener servicio" />
+
+    <Button
+        android:id="@+id/boton_socorro"
+        android:layout_width="119dp"
+        android:layout_height="wrap_content"
+        android:text="SOS" />
+
+</LinearLayout>

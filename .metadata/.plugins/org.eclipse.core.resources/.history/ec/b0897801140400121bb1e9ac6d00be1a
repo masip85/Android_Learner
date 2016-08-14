@@ -1,0 +1,40 @@
+package es.cvmaker.upv.aplicacion;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.SherlockFragment;
+
+public class ActividadEditar2 extends SherlockFragment
+{
+	
+	public static View MyView;
+	EditText cv2EditLocalidad[] = new EditText[2];
+	
+	
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState)
+	{
+		View view = inflater.inflate(R.layout.actividad_cv2_datosacademicos, container, false);
+		MyView=view;
+		return view;
+		
+		 // / / / / / / / / / / / / / / / / /CV2 / / / / / / / / / / / / / / /
+		
+		 // Defino los EditText
+		 cv2EditEstudios[cvContadorModulos[0]] = (EditText)
+		 cvLayoutModulo[0][cvContadorModulos[0]]
+		 .findViewById(R.id.cv2EditEstudios);
+		
+	public View getMyView(){ 
+		return MyView;
+	}
+	
+}

@@ -1,0 +1,40 @@
+<resources>
+
+    <style name="Theme.MyApp" parent="Theme.Sherlock.Light">
+
+<!--         the text when loading -->
+<!--        
+<!--         <item name="actionBarStyle">@style/Widget.MyApp.ActionBar</item> -->
+<!--         <item name="android:actionBarStyle">@style/Widget.MyApp.ActionBar</item> -->
+<!--         --> -->
+
+
+<!--         the dropdown items -->
+<!--         <item name="android:spinnerDropDownItemStyle">@style/MyApp.Widget.Holo.DropDownItem</item> -->
+<!--         <item name="spinnerDropDownItemStyle">@style/MyApp.Widget.Holo.DropDownItem</item> -->
+
+<!--         the action bar dropdown menu item -->
+<!--        
+<!--         <item name="android:spinnerItemStyle">@style/MyApp.Widget.Holo.SpinnerItem</item> -->
+<!--         <item name="spinnerItemStyle">@style/MyApp.Widget.Holo.SpinnerItem</item> -->
+<!--         --> -->
+<!--     </style> -->
+
+<!--     <style name="Widget.MyApp.ActionBar" parent="Widget.Sherlock.Light.ActionBar"> -->
+<!--         <item name="titleTextStyle">@style/Widget.MyApp.TitleTextStyle</item> -->
+<!--         <item name="android:titleTextStyle">@style/Widget.MyApp.TitleTextStyle</item> -->
+<!--     </style> -->
+
+<!--     <style name="Widget.MyApp.TitleTextStyle" parent="TextAppearance.Sherlock.Widget.ActionBar.Title"> -->
+<!--         <item name="android:textColor">@color/orange</item> -->
+<!--     </style> -->
+
+<!--     <style name="MyApp.Widget.Holo.DropDownItem" parent="Widget.Sherlock.Light.DropDownItem.Spinner"> -->
+<!--         <item name="android:background">@color/orange</item> -->
+<!--     </style> -->
+
+<!--     <style name="MyApp.Widget.Holo.SpinnerItem" parent="Widget.Sherlock.TextView.SpinnerItem"> -->
+<!--         <item name="android:background">@color/orange</item> -->
+<!--     </style> -->
+
+</resources>

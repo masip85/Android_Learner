@@ -1,0 +1,92 @@
+package es.cvmaker.upv.aplicacion;
+
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.SherlockFragment;
+
+public class ActividadEditar1 extends SherlockFragment
+{
+	// / / / / / / / / / / / / / / / / /CV1 / / / / / / / / / / / / / / / / / /
+		Drawable foto;
+		public static final int PETICION_CAMARA = 2000;
+		public static final int PETICION_CARGARFOTO = 1000;
+		String rutaFicheroSeleccionado = "";
+		EditText cv1EditNombre;
+		EditText cv1EditEmail;
+		EditText cv1EditLocalidad;
+		EditText cv1EditTelefono;
+		DatePicker cv1DatePicker;
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState)
+	{
+		
+		// / / / / / / / / / / / / / / / / /CV1 / / / / / / / / / / / / / / / / / /
+		// Defino datePicker
+		cv1DatePicker = (DatePicker) getActivity().findViewById(R.id.cv1DatePicker);
+		// datePicker.getDayOfMonth();
+		// datePicker.getMonth();
+		// datePicker.getYear();
+		// Pongo en la foto la silueta
+		ImageView imageView = (ImageView) getActivity().findViewById(R.id.cv1ImageViewFoto);
+		Drawable drawable = getResources().getDrawable(R.drawable.silueta);
+		if (drawable==null){
+			Log.i("aa","ee");
+			}
+//		imageView.setImageResource(0); // ¿hace falta?
+		imageView.setImageDrawable(drawable);
+//		// Defino los EditText
+//		cv1EditNombre = (EditText) getActivity().findViewById(R.id.cv1EditNombre);
+//		cv1EditEmail = (EditText) getActivity().findViewById(R.id.cv1EditEmail);
+//		cv1EditLocalidad = (EditText) getActivity().findViewById(R.id.cv1EditLocalidad);
+//		cv1EditTelefono = (EditText) getActivity().findViewById(R.id.cv1EditTelefono);
+		View view = inflater.inflate(R.layout.actividad_cv1_datospersonales, container, false);
+		return view;
+	}
+	
+//	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//		if (requestCode == PETICION_CARGARFOTO & resultCode == getActivity().RESULT_OK) {
+//			rutaFicheroSeleccionado = data.getExtras().getString(
+//					"RutaArchivoSeleccionado");
+//			File imgFile = new File(rutaFicheroSeleccionado);
+//			if (imgFile.exists()) {
+//				Bitmap myBitmap = BitmapFactory.decodeFile(imgFile
+//						.getAbsolutePath());
+//				ImageView myImage = (ImageView) getActivity().findViewById(R.id.cv1ImageViewFoto);
+//				myImage.setImageBitmap(myBitmap);
+//			}
+//		}
+//		if (requestCode == PETICION_CAMARA & resultCode == getActivity().RESULT_OK) {
+//			Bitmap photo = (Bitmap) data.getExtras().get("data");
+//			ImageView imageView = (ImageView) getActivity().findViewById(R.id.cv1ImageViewFoto);
+//			imageView.setImageBitmap(photo);
+//		}
+//	}
+//	
+//	public void lanzarcv1TomarFoto(View view) {
+//		Intent cameraIntent = new Intent(
+//				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//		getActivity().startActivityForResult(cameraIntent, PETICION_CAMARA);
+//	}
+
+//	public void lanzarcv1CargarFoto(View view) {
+//
+//		Intent intent = new Intent(this,
+//				getActivity().es.cvmaker.upv.navegador.FileChooser.class);
+//		intent.putExtra("tipoFichero", "Imagen");
+//		startActivityForResult(intent, PETICION_CARGARFOTO);
+//	}
+
+	
+}

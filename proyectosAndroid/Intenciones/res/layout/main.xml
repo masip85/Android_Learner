@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btnWeb"
+        android:onClick="pgWeb"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Abrir página web" />
+
+    <Button
+        android:id="@+id/btnLlamar"
+        android:onClick="llamadaTelefono"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Llamada de teléfono" />
+
+    <Button
+        android:id="@+id/btnMaps"
+        android:onClick="googleMaps"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Google Maps" />
+
+    <Button
+        android:id="@+id/btnTomarFoto"
+        android:onClick="tomarFoto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Tomar foto" />
+
+    <Button
+        android:id="@+id/btnEmail"
+        android:onClick="mandarCorreo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Mandar correo" />
+
+</LinearLayout>

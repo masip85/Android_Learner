@@ -1,0 +1,47 @@
+package your.package2.namespace;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.RelativeLayout;
+
+import com.artifex.mupdf.MuPDFCore;
+import com.artifex.mupdf.MuPDFPageAdapter;
+import com.artifex.mupdf.ReaderView;
+
+public class Visor2Activity extends Activity {
+
+	private MuPDFCore    core;
+	private String       mFileName;
+	private ReaderView   mDocView;
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        try {
+        	System.out.print("CORE?");
+			core = new MuPDFCore("/mnt/sdcard/memoria.pdf");
+		} catch (Exception e) {
+			System.out.print("NO CORE");
+		}
+    	savedInstanceState.putString("FileName", mFileName);
+    	createUI(savedInstanceState);
+        RelativeLayout layout = new RelativeLayout(this);
+    	layout.addView(mDocView);   			
+    	setContentView(layout);
+    	System.out.println("ACTIVIDAD LANZADA");
+    }
+    public void createUI(Bundle savedInstanceState) {
+		if (core == null)
+			return;
+		// Now create the UI.
+		// First create the document view making use of the ReaderView's internal
+		// gesture recognition
+		mDocView = new ReaderView(this) {};
+		mDocView.setAdapter(new MuPDFPageAdapter(this, core));
+//		// Set the file-name text
+//		mFilenameView.setText(mFileName);	
+
+		
+	}
+}

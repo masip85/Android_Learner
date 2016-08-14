@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<submenu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/fin"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/cvBotonFin"/>
+
+    <item
+        android:id="@+id/Editar"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/Editar"/>
+
+    <item
+        android:id="@+id/Nuevo"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/Nuevo"/>
+
+    <item
+        android:id="@+id/EjemploCv"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/EjemploCV"/>
+
+    <item
+        android:id="@+id/Abrir"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/Abrir"/>
+
+</submenu>
